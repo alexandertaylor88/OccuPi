@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
 public class Login extends AppCompatActivity {
 
@@ -51,4 +51,10 @@ public class Login extends AppCompatActivity {
         Intent intent = new Intent (this, Rally.class);
         startActivity(intent);
     }
+
+    public void goAdmin(View view) {
+        Intent intent = new Intent (this, AdminSettings.class);
+        startActivity(intent);
+    }
+
 }

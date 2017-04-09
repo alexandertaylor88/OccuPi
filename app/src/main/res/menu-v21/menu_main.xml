@@ -9,7 +9,7 @@
         android:id="@+id/rally" android:icon="@android:drawable/ic_dialog_info" app:showAsAction="never" android:title="Rally">
     </item>
     <item
-        android:id="@+id/login" android:title="Switch User">
+        android:id="@+id/login" android:title="Admin Features">
     </item>
 
 </menu>

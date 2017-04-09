@@ -31,7 +31,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_height="240dp"
-        android:gravity="top"/>
+        android:gravity="top" />
 
     <Spinner
         android:id="@+id/room_menu"

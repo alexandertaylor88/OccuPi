@@ -15,11 +15,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Rally" />
+        <activity android:name=".Rally"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".Login" />
         <activity android:name=".Search" />
         <activity android:name=".RoomStatus" />
-        <activity android:name=".Browse"></activity>
+        <activity android:name=".Browse" />
+        <activity android:name=".AdminSettings"></activity>
     </application>
 
 </manifest>

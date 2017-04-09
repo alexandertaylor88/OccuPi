@@ -52,4 +52,10 @@
         <item>Large</item>
     </string-array>
 
+    <string-array name="roomSize">
+        <item>Small(0-4)</item>
+        <item>Medium(4-8)</item>
+        <item>Large(9+)</item>
+    </string-array>
+
 </resources>
