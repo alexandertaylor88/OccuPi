@@ -15,7 +15,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="occupi.occupi.Search">
+        tools:context="occupi.occupi.Search1">
 
         <TextView
             android:id="@+id/textView2"
@@ -38,7 +38,7 @@
             android:background="#cdcdcd"
             android:onClick="goRoomStatus"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/floor1" />
+            app:srcCompat="@drawable/floor2" />
 
         <CheckBox
             android:id="@+id/checkBox8"

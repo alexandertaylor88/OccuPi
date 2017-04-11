@@ -1,17 +1,22 @@
 package occupi.occupi;
 
 import android.content.Intent;
+import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-public class AdminSettings extends AppCompatActivity {
+public class Search1 extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_settings);
+        setContentView(R.layout.search1);
     }
 
     @Override
@@ -51,4 +56,13 @@ public class AdminSettings extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goRoomStatus(View view) {
+        Intent intent = new Intent (this, RoomStatus.class);
+        startActivity(intent);
+    }
+
+    public void updateSearch(View view) {
+        Intent intent = new Intent (this, Search.class);
+        startActivity(intent);
+    }
 }

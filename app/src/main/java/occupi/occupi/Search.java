@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class Search extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +21,6 @@ public class Search extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -60,8 +61,8 @@ public class Search extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goBrowseRooms(View view) {
-        Intent intent = new Intent (this, Browse.class);
+    public void updateSearch(View view) {
+        Intent intent = new Intent (this, Search1.class);
         startActivity(intent);
     }
 }
