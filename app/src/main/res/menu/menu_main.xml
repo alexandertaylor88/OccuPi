@@ -1,21 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/search" android:icon="?android:attr/actionModeWebSearchDrawable" app:showAsAction="always" android:title="Search"
-        tools:targetApi="lollipop" />
+        android:id="@+id/search"
+        android:icon="?android:attr/actionModeWebSearchDrawable"
+        android:title="Search"
+        app:showAsAction="always"></item>
     <item
-        android:id="@+id/login" android:icon="@android:drawable/ic_dialog_info" app:showAsAction="never" android:title="Login"
-        android:onClick="goLogin">
+        android:id="@+id/rally" android:icon="@android:drawable/ic_dialog_info" app:showAsAction="never" android:title="Rally">
+    </item>
+    <item
+        android:id="@+id/login" android:title="Admin Features">
     </item>
 
-    <item
-        android:id="@+id/rally" android:title="Rally"
-        android:onClick="goRally">
-    </item>
-
-    <item
-        android:id="@+id/exit" android:title="Exit">
-    </item>
 </menu>

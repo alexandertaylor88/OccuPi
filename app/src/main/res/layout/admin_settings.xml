@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorButtonNormal"
     android:orientation="vertical"
-    tools:context="occupi.occupi.AdminSettings"
+    tools:context="sachinmuralig.me.simplemulticontactpicker.AdminSettings"
     android:weightSum="1">
 
     <EditText

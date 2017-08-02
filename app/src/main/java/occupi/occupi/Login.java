@@ -1,8 +1,8 @@
 package occupi.occupi;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,35 +25,21 @@ public class Login extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.search:
-            goSearch();
+            startActivity(new Intent(this, Search.class));
             return(true);
         case R.id.login:
-            goLogin();
+            startActivity(new Intent(this, Login.class));
             return(true);
         case R.id.rally:
-            goRally();
+            startActivity(new Intent(this, Rally.class));
             return(true);
 
     }
         return(super.onOptionsItemSelected(item));
     }
-    public void goSearch(){
-        Intent intent = new Intent (this, Search.class);
-        startActivity(intent);
-    }
-
-    public void goLogin(){
-        Intent intent = new Intent (this, Login.class);
-        startActivity(intent);
-    }
-
-    public void goRally(){
-        Intent intent = new Intent (this, Rally.class);
-        startActivity(intent);
-    }
 
     public void goAdmin(View view) {
-        Intent intent = new Intent (this, AdminSettings.class);
+        Intent intent = new Intent(this, AdminSettings.class);
         startActivity(intent);
     }
 
