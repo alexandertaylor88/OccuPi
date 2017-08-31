@@ -40,6 +40,16 @@ public class Contact implements Parcelable {
         return name+" | "+label+" : "+phone;
     }
 
+    public String number()
+    {
+        return phone;
+    }
+
+    public String name()
+    {
+        return name;
+    }
+
     @Override
     public int describeContents() {
         return 0;
