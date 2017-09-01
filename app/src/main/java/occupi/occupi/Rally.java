@@ -1,32 +1,34 @@
 package occupi.occupi;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static android.telephony.SmsMessage.MAX_USER_DATA_BYTES;
-
 public class Rally extends AppCompatActivity {
 
-//    TextView contactsDisplay;
     EditText contactsDisplay;
     Button pickContacts;
     final int CONTACT_PICK_REQUEST = 1000;
@@ -36,6 +38,14 @@ public class Rally extends AppCompatActivity {
     Spinner floor;
     Spinner room;
     TimePicker time;
+    DatePicker date;
+    ////////////////////***********************//////////////
+    Context mContext;
+    Activity mActivity;
+    RelativeLayout mRelativeLayout;
+    Button mButton;
+    PopupWindow mPopupWindow;
+    ////////////////////***********************//////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +55,6 @@ public class Rally extends AppCompatActivity {
         //////////////////////////////////////////////////////////
         floor = (Spinner) findViewById(R.id.floor_menu);
         room = (Spinner) findViewById(R.id.room_menu);
-        time = (TimePicker) findViewById(R.id.timePicker);
         buttonSend = (Button) findViewById(R.id.buttonSend);
         textPhoneNo = (EditText) findViewById(R.id.editTextPhoneNo);
         textSMS = (EditText) findViewById(R.id.editTextSMS);
@@ -56,18 +65,19 @@ public class Rally extends AppCompatActivity {
             public void onClick(View v) {
                 String sms = "";
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    if (!Objects.equals(textPhoneNo.getText().toString(), "") && !Objects.equals(floor.getSelectedItem().toString(), "Select Floor") && !Objects.equals(room.getSelectedItem().toString(), "Select Room")) {
+
+                    if (!Objects.equals(textPhoneNo.getText().toString(), "") && !Objects.equals(mButton.getText().toString(), "Select Date and Time") && !Objects.equals(floor.getSelectedItem().toString(), "Select Floor") && !Objects.equals(room.getSelectedItem().toString(), "Select Room")) {
                         String phoneNo = textPhoneNo.getText().toString();
+                        sms = "Enterprise Meeting:" + "\n" + formatDate(date) + "\n" + formatTime(time) + "\n" + floor.getSelectedItem().toString() + "\n" + room.getSelectedItem().toString();
                         if(!Objects.equals(textSMS.getText().toString(), "")) {
-                            sms = "Enterprise Meeting:" + "\n" + formatTime(time) + "\n" + floor.getSelectedItem().toString() + "\n" + room.getSelectedItem().toString() + "\n" + textSMS.getText().toString();
+                            sms += "\n" + textSMS.getText().toString();
                         }
-                        else{sms = "Enterprise Meeting:" + "\n" + formatTime(time) + "\n" + floor.getSelectedItem().toString() + "\n" + room.getSelectedItem().toString();}
                         try {
                             SmsManager smsManager = SmsManager.getDefault();
                             List<String> numbers = Arrays.asList(phoneNo.split("\\s*,\\s*"));
-                            ArrayList<String> messagefragments = smsManager.divideMessage(sms);
-                            for (int phonenumber = 0; phonenumber < numbers.size(); phonenumber++) {
-                                smsManager.sendMultipartTextMessage(numbers.get(phonenumber), null, messagefragments, null, null);
+                            ArrayList<String> messageFragments = smsManager.divideMessage(sms);
+                            for (int phoneNumber = 0; phoneNumber < numbers.size(); phoneNumber++) {
+                                smsManager.sendMultipartTextMessage(numbers.get(phoneNumber), null, messageFragments, null, null);
                             }
                             Toast.makeText(getApplicationContext(), "Message Sent",
                                     Toast.LENGTH_LONG).show();
@@ -99,6 +109,44 @@ public class Rally extends AppCompatActivity {
             }
         });
 
+        ///////////////////////////****************//////////////////////////
+        mContext = getApplicationContext();
+        mActivity = Rally.this;
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.activity_display_message);
+        mButton = (Button) findViewById(R.id.dateTime);
+        mButton.setBackgroundDrawable(null);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+
+                View customView = inflater.inflate(R.layout.date_time, null);
+
+                mPopupWindow = new PopupWindow(
+                        customView,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        500
+                );
+
+                if (Build.VERSION.SDK_INT >= 21) {
+                    mPopupWindow.setElevation(5.0f);
+                }
+
+                Button closeButton = (Button) customView.findViewById(R.id.set);
+                time = (TimePicker) customView.findViewById(R.id.timePicker);
+                date = (DatePicker) customView.findViewById(R.id.datePicker);
+                closeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mPopupWindow.dismiss();
+                        mButton.setText("Meeting Time:\n" + formatTime(time) + "\n" + formatDate(date));
+                    }
+                });
+                mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
+            }
+        });
+        ///////////////////////////****************//////////////////////////
+
     }
 
     @Override
@@ -109,7 +157,6 @@ public class Rally extends AppCompatActivity {
             ArrayList<Contact> selectedContacts = data.getParcelableArrayListExtra("SelectedContacts");
             String display="";
             for(int i=0;i<selectedContacts.size();i++){
-//                display += (i+1)+". "+selectedContacts.get(i).toString()+"\n";
                 display += selectedContacts.get(i).number();
                 if(i<selectedContacts.size() - 1){
                     display += ", ";
@@ -152,6 +199,10 @@ public class Rally extends AppCompatActivity {
             return intHour + ":" + stringMinute + " AM";
         }
         else{return (intHour - 12) + ":" + stringMinute + " PM";}
+    }
+
+    public String formatDate(DatePicker date){
+        return date.getMonth()+ "/" + date.getDayOfMonth() + "/" + date.getYear();
     }
 
 }

@@ -14,7 +14,6 @@
 
     <string-array name="android_dropdown_floor">
         <item>Select Floor</item>
-        <item>Any Floor</item>
         <item>Floor 1</item>
         <item>Floor 2</item>
         <item>Floor 3</item>
