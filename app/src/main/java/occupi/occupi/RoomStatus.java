@@ -15,7 +15,6 @@ public class RoomStatus extends AppCompatActivity {
         setContentView(R.layout.room_status);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -34,7 +33,6 @@ public class RoomStatus extends AppCompatActivity {
         case R.id.rally:
             startActivity(new Intent(this, Rally.class));
             return(true);
-
     }
         return(super.onOptionsItemSelected(item));
     }
