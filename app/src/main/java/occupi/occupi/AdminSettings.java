@@ -23,7 +23,7 @@ public class AdminSettings extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.search:
-            startActivity(new Intent(this, Search.class));
+            startActivity(new Intent(this, Map.class));
             return(true);
         case R.id.login:
             startActivity(new Intent(this, Login.class));
