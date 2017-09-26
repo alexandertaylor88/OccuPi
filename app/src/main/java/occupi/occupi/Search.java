@@ -1,6 +1,8 @@
 package occupi.occupi;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -14,6 +16,9 @@ public class Search extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        permissionsRequest();
+        ////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     @Override
@@ -38,13 +43,33 @@ public class Search extends AppCompatActivity {
         return(super.onOptionsItemSelected(item));
     }
 
+    public void permissionsRequest() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            if ((checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED) || (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED)) {
+                if ((checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED) && (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED)) {
+                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.SEND_SMS},0);
+                }
+                else if ((checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED)){
+                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},0);
+                }
+                else{requestPermissions(new String[]{Manifest.permission.SEND_SMS, Manifest.permission.SEND_SMS},0);}
+            }
+        }
+    }
+
     public void goRoomStatus(View view) {
         Intent intent = new Intent(this, RoomStatus.class);
         startActivity(intent);
     }
 
     public void updateSearch(View view) {
-        Intent intent = new Intent(this, Search1.class);
+        Intent intent = new Intent(this, Search.class);
         startActivity(intent);
     }
+
+    public void goList(View view) {
+        Intent intent = new Intent(this, List.class);
+        startActivity(intent);
+    }
+
 }

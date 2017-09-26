@@ -2,22 +2,76 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="C:\Users\alexa\Documents\GitHub\OccuPi\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\alexa\.android\build-cache\b3eb4cb01dcf48cb2758a570feba937c03dea293\output\jars\libs\internal_impl-23.2.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="C:\Users\alexa\Documents\GitHub\OccuPi\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_b93dc1bfd10213e099b6791b4e68a78c96471c6c\classes.dex" />
+        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
+        <dex dex="C:\Users\alexa\Desktop\New folder (11)\OccuPi\app\build\intermediates\pre-dexed\debug\internal_impl-23.2.1_7b3b51b58eb37a614f6c70956b0e3b3d06af9d3c.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\alexa\Documents\GitHub\OccuPi\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\alexa\.android\build-cache\b81267af64668f5e1beb9931a34436ede2798679\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="79b86faf0f942f02c031345fdaa4902818a6eede">
-        <dex dex="C:\Users\alexa\Documents\GitHub\OccuPi\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_9e0e2457624949b21f3253efa9a35284689f1b71\classes.dex" />
+        sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
+        <dex dex="C:\Users\alexa\Desktop\New folder (11)\OccuPi\app\build\intermediates\pre-dexed\debug\classes_34e487954933792ae59b877dee19f0aab56ddc91.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\alexa\.android\build-cache\be916c12a7077f9f96bdfc3510ad61963a206e1e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3469cb457f10f74c28cbc05f069b6c894f6cbdd0">
+        <dex dex="C:\Users\alexa\Desktop\New folder (11)\OccuPi\app\build\intermediates\pre-dexed\debug\classes_14339acdfedeb33734e11271dbd19f89b393bf9a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\alexa\.android\build-cache\a2d3b1de663434d9fceba39ec19615d097e1f431\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e3885783ff8926ed9e2fdcd16816c2e1e73e7aee">
+        <dex dex="C:\Users\alexa\Desktop\New folder (11)\OccuPi\app\build\intermediates\pre-dexed\debug\classes_6f7ba87ac60f12c649fd7b34b157eff368035ebe.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\alexa\.android\build-cache\234b51f3bdc2fe1006cf4e41a8023115770785ef\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="72961d8b453b46e277702f18de9d210bc019e36e">
+        <dex dex="C:\Users\alexa\Desktop\New folder (11)\OccuPi\app\build\intermediates\pre-dexed\debug\classes_adc97299b4104a7c9bb4bd3ae937c7c3b093ee7d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\alexa\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.2.1\support-annotations-23.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
+        <dex dex="C:\Users\alexa\Desktop\New folder (11)\OccuPi\app\build\intermediates\pre-dexed\debug\support-annotations-23.2.1_022cc8b567ad91640a8b4f7722bf689ef4a214ca.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\alexa\.android\build-cache\c05cb4ab6b6530f1b099ab95a7c7e29f761cf4b5\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="673d77a5bbddd766037f088e775df525c46407f0">
+        <dex dex="C:\Users\alexa\Desktop\New folder (11)\OccuPi\app\build\intermediates\pre-dexed\debug\classes_270e1fc87ee08044edb709e807d7db053c3181f1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\alexa\.android\build-cache\b3eb4cb01dcf48cb2758a570feba937c03dea293\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3be474b1b21b31cf2fa93fe6bd641ae108d96452">
+        <dex dex="C:\Users\alexa\Desktop\New folder (11)\OccuPi\app\build\intermediates\pre-dexed\debug\classes_269d1214b07ec155b3fdb6fd0b749194ce8b97ac.jar" />
     </item>
 
 </items>

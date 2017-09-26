@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -79,12 +78,9 @@ public class Rally extends AppCompatActivity {
                             for (int phoneNumber = 0; phoneNumber < numbers.size(); phoneNumber++) {
                                 smsManager.sendMultipartTextMessage(numbers.get(phoneNumber), null, messageFragments, null, null);
                             }
-                            Toast.makeText(getApplicationContext(), "Message Sent",
-                                    Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Message Sent", Toast.LENGTH_LONG).show();
                         } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(),
-                                    "Message Failed",
-                                    Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Message Failed", Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
                         InputMethodManager imm = (InputMethodManager) getSystemService(Rally.INPUT_METHOD_SERVICE);
@@ -121,11 +117,11 @@ public class Rally extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
                 View customView = inflater.inflate(R.layout.date_time, null);
-
+                customView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 mPopupWindow = new PopupWindow(
                         customView,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        500
+                        customView.getMeasuredWidth(),
+                        customView.getMeasuredHeight()
                 );
 
                 if (Build.VERSION.SDK_INT >= 21) {
@@ -191,18 +187,15 @@ public class Rally extends AppCompatActivity {
         int intHour = time.getCurrentHour();
         int intMinute = time.getCurrentMinute();
         String stringMinute = "";
-        if(intMinute < 10){
-            stringMinute = "0" + intMinute;
-        }
+        if(intMinute < 10){stringMinute = "0" + intMinute;}
         else {stringMinute = Integer.toString(intMinute);}
-        if(intHour < 12){
-            return intHour + ":" + stringMinute + " AM";
-        }
+        if(intHour == 0){return "12:" + stringMinute + " AM";}
+        else if(intHour < 12){return intHour + ":" + stringMinute + " AM";}
+        else if(intHour == 12){return "12:" + stringMinute + " PM";}
         else{return (intHour - 12) + ":" + stringMinute + " PM";}
     }
 
     public String formatDate(DatePicker date){
         return date.getMonth()+ "/" + date.getDayOfMonth() + "/" + date.getYear();
     }
-
 }
