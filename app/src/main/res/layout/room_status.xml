@@ -26,76 +26,34 @@
     </View>
 
     <TextView
-        android:id="@+id/status"
+        android:id="@+id/text_num"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45sp"
-        android:text="Room 1113 is unoccupied"
+        android:text="Room Number"
         android:textColor="#ffffff"
         android:textStyle="bold"></TextView>
 
     <TextView
-        android:id="@+id/floorStatus"
+        android:id="@+id/text_type"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65sp"
-        android:text="Floor 1"
+        android:text="Room Type"
         android:textColor="#ffffff"
         android:textStyle="bold"></TextView>
-
-    <ImageView
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        app:srcCompat="@drawable/tvicon"
-        android:id="@+id/phone"
-        android:layout_alignTop="@+id/pc"
-        android:layout_toRightOf="@+id/pc"
-        android:layout_marginLeft="15dp">
-    </ImageView>
-
-    <ImageView
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        app:srcCompat="@drawable/phoneicon"
-        android:id="@+id/pc"
-        android:layout_alignTop="@+id/floor"
-        android:layout_toRightOf="@+id/floor"
-        android:layout_marginLeft="15dp">
-    </ImageView>
-
-    <ImageView
-        android:id="@+id/floor"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/view"
-        android:layout_marginTop="15dp"
-        app:srcCompat="@drawable/pcicon">
-    </ImageView>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/picture1"
         android:id="@+id/imageView"
-        android:layout_marginTop="100dp"
         android:layout_below="@+id/view"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-    </ImageView>
-
-    <TextView
-        android:text="Room Status..."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/textView6"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_marginTop="22dp">
+    </ImageView>
 
     <TextView
         android:id="@+id/rallyLink"

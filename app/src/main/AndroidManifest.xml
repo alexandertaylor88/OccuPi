@@ -31,9 +31,9 @@
         <activity
             android:name=".Rally"
             android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".List"></activity>
+        <activity android:name=".RoomDetail"></activity>
         <activity android:name=".Login" />
-        <activity android:name=".List" />
-        <activity android:name=".RoomStatus" />
         <activity android:name=".AdminSettings" />
     </application>
 

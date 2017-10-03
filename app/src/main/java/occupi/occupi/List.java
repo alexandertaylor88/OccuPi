@@ -1,19 +1,56 @@
 package occupi.occupi;
-
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class List extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class List extends ListActivity{
+
+    TextView room_Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
 
-    }
+            RepoHelper repo = new RepoHelper(this);
+
+            ArrayList<HashMap<String, String>> roomList =  repo.getEmptyRoomList();
+            if(roomList.size()!=0) {
+                ListView lv = getListView();
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        room_Id = (TextView) view.findViewById(R.id.room_Id);
+                        String roomId = room_Id.getText().toString();
+                        Intent objIndent = new Intent(getApplicationContext(),RoomDetail.class);
+                        objIndent.putExtra("room_Id", Integer.parseInt( roomId));
+                        startActivity(objIndent);
+                    }
+                });
+
+                try{
+                    ListAdapter adapter = new SimpleAdapter( List.this,roomList, R.layout.view_room_entry, new String[] { "id", "id"}, new int[] {R.id.room_Id, R.id.room_Num});
+                    setListAdapter(adapter);
+                }
+                catch(Exception e){
+                    Toast.makeText(this,e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(this,"No Rooms", Toast.LENGTH_SHORT).show();
+            }
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,4 +73,5 @@ public class List extends AppCompatActivity {
         return(super.onOptionsItemSelected(item));
     }
 
-}
+    }
+

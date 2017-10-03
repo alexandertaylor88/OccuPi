@@ -2,21 +2,38 @@ package occupi.occupi;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
-public class RoomStatus extends AppCompatActivity {
+public class RoomDetail extends ActionBarActivity {
+
+    TextView textType;
+    TextView textID;
+    private int _Room_Id=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.room_status);
+
+        textID = (TextView)findViewById(R.id.text_num);
+        textType = (TextView)findViewById(R.id.text_type);
+
+    _Room_Id = 0;
+    Intent intent = getIntent();
+    _Room_Id = intent.getIntExtra("room_Id", 0);
+    RepoHelper repo = new RepoHelper(this);
+    Room room = new Room();
+    room = repo.getRoomById(_Room_Id);
+
+    textType.setText(room.type);
+    textID.setText(Integer.toString(_Room_Id));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
