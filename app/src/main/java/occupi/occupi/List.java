@@ -25,11 +25,6 @@ public class List extends ListActivity{
         setContentView(R.layout.list);
 
             DataBaseHelper repo = new DataBaseHelper(this);
-        /////////////////////////////////////////////////////////////////////////////////////////////
-//        byte arr[] = new byte[] { 0, 0, 0 };
-        byte arr[] = new byte[] { 10, 20, 30 };
-        Toast.makeText(this,repo.updateOccupancy(2, arr), Toast.LENGTH_SHORT).show();
-        /////////////////////////////////////////////////////////////////////////////////////////////
             ArrayList<HashMap<String, String>> roomList =  repo.getEmptyRoomList();
             if(roomList.size()!=0) {
                 ListView lv = getListView();
