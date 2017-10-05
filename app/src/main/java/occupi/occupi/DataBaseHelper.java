@@ -1,111 +1,130 @@
 package occupi.occupi;
 
+import android.content.ContentValues;
 import android.content.Context;
-import android.database.SQLException;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class DataBaseHelper extends SQLiteOpenHelper
-{
-    private static String TAG = "DataBaseHelper"; // Tag just for the LogCat window
-    //destination path (location) of our database on device
-    private static String DB_PATH = "";
-    private static String DB_NAME ="occupi";// Database name
-    private SQLiteDatabase mDataBase;
-    private final Context mContext;
+public class DataBaseHelper {
+    private DataBaseConn dbHelper;
 
-    public DataBaseHelper(Context context)
-    {
-        super(context, DB_NAME, null, 1);// 1? Its database Version
-        if(android.os.Build.VERSION.SDK_INT >= 17){
-            DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
-        }
-        else
-        {
-            DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
-        }
-        this.mContext = context;
+    public DataBaseHelper(Context context) {
+        dbHelper = new DataBaseConn(context);
     }
 
-    public void createDataBase() throws IOException
-    {
-        //If the database does not exist, copy it from the assets.
+    public int insert(Room room) {
 
-        boolean mDataBaseExist = checkDataBase();
-        if(!mDataBaseExist)
-        {
-            this.getReadableDatabase();
-            this.close();
-            try
-            {
-                //Copy the database from assests
-                copyDataBase();
-                Log.e(TAG, "createDatabase database created");
-            }
-            catch (IOException mIOException)
-            {
-                throw new Error("ErrorCopyingDataBase");
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Room.KEY_occupied,room.occupied);
+        values.put(Room.KEY_type, room.type);
+        long room_Id = db.insert(Room.TABLE, null, values);
+        db.close();
+        return (int) room_Id;
+    }
+
+    public void delete(int room_Id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(Room.TABLE, Room.KEY_ID + "= ?", new String[] { String.valueOf(room_Id) });
+        db.close();
+    }
+
+    public void updateRoom(Room room) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Room.KEY_occupied,room.occupied);
+        values.put(Room.KEY_type, room.type);
+        db.update(Room.TABLE, values, Room.KEY_ID + "= ?", new String[] { String.valueOf(room.room_ID) });
+        db.close();
+    }
+
+    public void updateOccupancy(int floor, byte[] roomArray) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        int roomNum = 1;
+        int mask;
+        for (int byteCount = 0; byteCount < roomArray.length; byteCount++) {
+            for (int bitCount = 0; bitCount < 8; bitCount++) {
+                mask = 1 << bitCount;
+                  values.put(Room.KEY_occupied, (((roomArray[byteCount] & mask) == 0) ? 0 : 1));
+                  db.update(Room.TABLE, values, Room.KEY_ID + "= ?", new String[] { floor + String.format("%02d", roomNum++) });
             }
         }
+        db.close();
     }
 
-    //Check that the database exists here: /data/data/your package/databases/Da Name
-    private boolean checkDataBase()
-    {
-        File dbFile = new File(DB_PATH + DB_NAME);
-        //Log.v("dbFile", dbFile + "   "+ dbFile.exists());
-        return dbFile.exists();
-    }
+    public ArrayList<HashMap<String, String>> getRoomList() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery =  "SELECT  " +
+                Room.KEY_ID + "," +
+                Room.KEY_type + "," +
+                Room.KEY_occupied +
+                " FROM " + Room.TABLE;
+        ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> room = new HashMap<String, String>();
+                room.put("id", cursor.getString(cursor.getColumnIndex(Room.KEY_ID)));
+                room.put("type", cursor.getString(cursor.getColumnIndex(Room.KEY_type)));
+                roomList.add(room);
 
-    //Copy the database from assets
-    private void copyDataBase() throws IOException
-    {
-        InputStream mInput = mContext.getAssets().open(DB_NAME);
-        String outFileName = DB_PATH + DB_NAME;
-        OutputStream mOutput = new FileOutputStream(outFileName);
-        byte[] mBuffer = new byte[1024];
-        int mLength;
-        while ((mLength = mInput.read(mBuffer))>0)
-        {
-            mOutput.write(mBuffer, 0, mLength);
+            } while (cursor.moveToNext());
         }
-        mOutput.flush();
-        mOutput.close();
-        mInput.close();
-    }
-
-    //Open the database, so we can query it
-    public boolean openDataBase() throws SQLException
-    {
-        String mPath = DB_PATH + DB_NAME;
-        //Log.v("mPath", mPath);
-        mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
-        //mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
-        return mDataBase != null;
-    }
-
-    @Override
-    public synchronized void close()
-    {
-        if(mDataBase != null)
-            mDataBase.close();
-        super.close();
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        cursor.close();
+        db.close();
+        return roomList;
 
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public ArrayList<HashMap<String, String>> getEmptyRoomList() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery =  "SELECT  " +
+                Room.KEY_ID + "," +
+                Room.KEY_type + "," +
+                Room.KEY_occupied +
+                " FROM " + Room.TABLE
+                + " WHERE " +
+                Room.KEY_occupied + "=0";
+        ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> room = new HashMap<String, String>();
+                room.put("id", cursor.getString(cursor.getColumnIndex(Room.KEY_ID)));
+                room.put("type", cursor.getString(cursor.getColumnIndex(Room.KEY_type)));
+                roomList.add(room);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return roomList;
+    }
 
+    public Room getRoomById(int Id){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery =  "SELECT  " +
+                Room.KEY_ID + "," +
+                Room.KEY_type + "," +
+                Room.KEY_occupied +
+                " FROM " + Room.TABLE
+                + " WHERE " +
+                Room.KEY_ID + "=?";
+        Room room = new Room();
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(Id) } );
+        if (cursor.moveToFirst()) {
+            do {
+                room.room_ID =cursor.getInt(cursor.getColumnIndex(Room.KEY_ID));
+                room.type =cursor.getString(cursor.getColumnIndex(Room.KEY_type));
+                room.occupied  =cursor.getString(cursor.getColumnIndex(Room.KEY_occupied));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return room;
     }
 }

@@ -24,8 +24,12 @@ public class List extends ListActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
 
-            RepoHelper repo = new RepoHelper(this);
-
+            DataBaseHelper repo = new DataBaseHelper(this);
+        /////////////////////////////////////////////////////////////////////////////////////////////
+//        byte arr[] = new byte[] { 0, 0, 0 };
+        byte arr[] = new byte[] { 10, 20, 30 };
+        Toast.makeText(this,repo.updateOccupancy(2, arr), Toast.LENGTH_SHORT).show();
+        /////////////////////////////////////////////////////////////////////////////////////////////
             ArrayList<HashMap<String, String>> roomList =  repo.getEmptyRoomList();
             if(roomList.size()!=0) {
                 ListView lv = getListView();
@@ -40,13 +44,8 @@ public class List extends ListActivity{
                     }
                 });
 
-                try{
                     ListAdapter adapter = new SimpleAdapter( List.this,roomList, R.layout.view_room_entry, new String[] { "id", "id"}, new int[] {R.id.room_Id, R.id.room_Num});
                     setListAdapter(adapter);
-                }
-                catch(Exception e){
-                    Toast.makeText(this,e.toString(), Toast.LENGTH_SHORT).show();
-                }
             }else{
                 Toast.makeText(this,"No Rooms", Toast.LENGTH_SHORT).show();
             }

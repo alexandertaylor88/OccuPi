@@ -24,7 +24,7 @@ public class RoomDetail extends ActionBarActivity {
     _Room_Id = 0;
     Intent intent = getIntent();
     _Room_Id = intent.getIntExtra("room_Id", 0);
-    RepoHelper repo = new RepoHelper(this);
+    DataBaseHelper repo = new DataBaseHelper(this);
     Room room = new Room();
     room = repo.getRoomById(_Room_Id);
 

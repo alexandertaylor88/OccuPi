@@ -41,8 +41,8 @@ public class Map extends AppCompatActivity {
         return(super.onOptionsItemSelected(item));
     }
 
-    public void goRoomStatus(View view) {
-        Intent intent = new Intent(this, RoomStatus.class);
+    public void goRoomDetail(View view) {
+        Intent intent = new Intent(this, RoomDetail.class);
         startActivity(intent);
     }
 
