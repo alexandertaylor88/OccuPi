@@ -24,8 +24,8 @@ public class List extends ListActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);
 
-            DataBaseHelper repo = new DataBaseHelper(this);
-            ArrayList<HashMap<String, String>> roomList =  repo.getEmptyRoomList();
+            DataBaseHelper db = new DataBaseHelper(this);
+            ArrayList<HashMap<String, String>> roomList =  db.getEmptyRoomList();
             if(roomList.size()!=0) {
                 ListView lv = getListView();
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
