@@ -37,6 +37,7 @@ public class BluetoothLE extends Service {
         scanner = adapter.getBluetoothLeScanner();
 
         //Checks if Bluetooth is enabled. Displays error prompting user to enable if not enabled.
+        //Needs testing to make sure it works right. Might need to change to startActivityForResult().
         if (adapter == null || !adapter.isEnabled()) {
             Intent btIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivity(btIntent);
