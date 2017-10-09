@@ -36,6 +36,12 @@ public class BluetoothLE extends Service {
         adapter = manager.getAdapter();
         scanner = adapter.getBluetoothLeScanner();
 
+        //Checks if Bluetooth is enabled. Displays error prompting user to enable if not enabled.
+        if (adapter == null || !adapter.isEnabled()) {
+            Intent btIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivity(btIntent);
+        }
+
         //filter uuids
         filters = new ArrayList<>();
         ParcelUuid serviceUuid = ParcelUuid.fromString("05b3fe32-0000-0000-0000-000000000000");
