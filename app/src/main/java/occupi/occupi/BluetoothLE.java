@@ -29,6 +29,7 @@ public class BluetoothLE extends Service {
     private ScanSettings settings;
     private ScanCallback callback;
     private SparseArray<byte[]> manufacturerData;
+    private int byte_array_length = 14; //Double check this value.
 
     @Override
     public void onCreate() {
@@ -75,6 +76,14 @@ public class BluetoothLE extends Service {
         manufacturerData = record.getManufacturerSpecificData();
 
         //put room data into database
+        byte[] roomData = new byte[byte_array_length];
+        DataBaseHelper db = new DataBaseHelper(this);
+        int floor = 0; //Update once floor is determined.
+
+        //Parse room data from advertisement into roomData array here.
+
+        db.updateOccupancy(floor, roomData);
+
 
 
         return START_STICKY;
