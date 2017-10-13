@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
     <application
         android:allowBackup="true"
@@ -13,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Map" >
+            android:name=".MainActivity" >
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,10 +32,11 @@
         <activity
             android:name=".Rally"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".List"></activity>
-        <activity android:name=".RoomDetail"></activity>
-        <activity android:name=".Login" />
-        <activity android:name=".AdminSettings" />
+        <activity android:name=".Map" />
+        <activity android:name=".List" />
+        <activity android:name=".RoomStatus" />
+
+        <service android:name=".BluetoothLE" />
     </application>
 
 </manifest>

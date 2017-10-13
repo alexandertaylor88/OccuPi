@@ -26,6 +26,16 @@ public class DataBaseHelper {
         return (int) room_Id;
     }
 
+    public void insertState() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        AppState state = new AppState();
+        values.put(state.KEY_state, 0);
+        values.put(state.KEY_ID, 1);
+        db.insert(state.TABLE, null, values);
+        db.close();
+    }
+
     public void delete(int room_Id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(Room.TABLE, Room.KEY_ID + "= ?", new String[] { String.valueOf(room_Id) });
@@ -81,8 +91,10 @@ public class DataBaseHelper {
     }
 
     public ArrayList<HashMap<String, String>> getEmptyRoomList() {
+        String id;
+        String type;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery =  "SELECT  " +
+        String selectQuery = "SELECT  " +
                 Room.KEY_ID + "," +
                 Room.KEY_type + "," +
                 Room.KEY_occupied +
@@ -94,8 +106,11 @@ public class DataBaseHelper {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> room = new HashMap<String, String>();
-                room.put("id", cursor.getString(cursor.getColumnIndex(Room.KEY_ID)));
-                room.put("type", cursor.getString(cursor.getColumnIndex(Room.KEY_type)));
+                id = cursor.getString(cursor.getColumnIndex(Room.KEY_ID));
+                type = cursor.getString(cursor.getColumnIndex(Room.KEY_type));
+                room.put("id", id);
+                room.put("type", type);
+                room.put("formattedData", formatListData(Integer.valueOf(id), type));
                 roomList.add(room);
             } while (cursor.moveToNext());
         }
@@ -122,9 +137,47 @@ public class DataBaseHelper {
                 room.occupied  =cursor.getString(cursor.getColumnIndex(Room.KEY_occupied));
             } while (cursor.moveToNext());
         }
-
         cursor.close();
         db.close();
         return room;
     }
+
+    public int getAppState() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery = "SELECT  " +
+                AppState.KEY_ID + "," +
+                AppState.KEY_state +
+                " FROM " + AppState.TABLE
+                + " WHERE " +
+                AppState.KEY_ID + "=?";
+        AppState appState = new AppState();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{"1"});
+        if (cursor.moveToFirst()) {
+            do {
+                appState.state = cursor.getInt(cursor.getColumnIndex(AppState.KEY_state));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return appState.state;
+    }
+
+    public void saveAppState(Context page) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(AppState.KEY_state, (page.getClass().getSimpleName().equals("Map")) ? 0 : 1);
+        db.update(AppState.TABLE, values, AppState.KEY_ID + "= ?", new String[]{"1"});
+        db.close();
+    }
+
+    public String formatListData(int id, String type) {
+        int floor = id / 100;
+        int room = id - (100 * floor);
+        if (room < 10) {
+            return String.format("%1$-" + 30 + "s", "Floor " + floor + " Room " + room) + " " + type;
+        } else {
+            return String.format("%1$-" + 30 + "s", "Floor " + floor + " Room " + room) + type;
+        }
+    }
+
 }

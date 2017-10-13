@@ -17,6 +17,8 @@ public class Map extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
         permissionsRequest();
+        DataBaseHelper db = new DataBaseHelper(this);
+        db.saveAppState(this);
     }
 
     @Override
@@ -27,22 +29,21 @@ public class Map extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
-        case R.id.search:
+        case R.id.map:
             startActivity(new Intent(this, Map.class));
             return(true);
-        case R.id.login:
-            startActivity(new Intent(this, Login.class));
+        case R.id.list:
+            startActivity(new Intent(this, List.class));
             return(true);
         case R.id.rally:
             startActivity(new Intent(this, Rally.class));
             return(true);
-
     }
         return(super.onOptionsItemSelected(item));
     }
 
     public void goRoomDetail(View view) {
-        Intent intent = new Intent(this, RoomDetail.class);
+        Intent intent = new Intent(this, RoomStatus.class);
         startActivity(intent);
     }
 

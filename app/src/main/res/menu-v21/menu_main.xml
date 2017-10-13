@@ -3,21 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".List">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/search"
-        android:icon="?android:attr/actionModeWebSearchDrawable"
-        android:title="Search"
+        android:id="@+id/map"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="Map"
         app:showAsAction="always"></item>
     <item
-        android:id="@+id/rally" android:icon="@android:drawable/ic_dialog_info" app:showAsAction="never" android:title="Rally">
-    </item>
+        android:id="@+id/list"
+        android:icon="@drawable/list_icon"
+        android:title="List"
+        app:showAsAction="always"></item>
     <item
-        android:id="@+id/login" android:title="Admin Features">
-    </item>
+        android:id="@+id/rally"
+        android:icon="@android:drawable/stat_notify_chat"
+        android:title="Rally"
+        app:showAsAction="always"></item>
 
 </menu>

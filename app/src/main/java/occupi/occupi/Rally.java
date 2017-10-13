@@ -38,25 +38,36 @@ public class Rally extends AppCompatActivity {
     Spinner room;
     TimePicker time;
     DatePicker date;
-    ////////////////////***********************//////////////
     Context mContext;
     Activity mActivity;
     RelativeLayout mRelativeLayout;
     Button mButton;
     PopupWindow mPopupWindow;
-    ////////////////////***********************//////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rally);
 
-        //////////////////////////////////////////////////////////
         floor = (Spinner) findViewById(R.id.floor_menu);
         room = (Spinner) findViewById(R.id.room_menu);
         buttonSend = (Button) findViewById(R.id.buttonSend);
         textPhoneNo = (EditText) findViewById(R.id.editTextPhoneNo);
         textSMS = (EditText) findViewById(R.id.editTextSMS);
+
+        //////////////////////////////////////////////////////////////////////////
+        Intent intent = getIntent();
+        Bundle roomData = intent.getExtras();
+
+        if(roomData!=null)
+        {
+            int roomNum = Integer.valueOf((String) roomData.get("id"));
+            int floorNum = roomNum/100;
+            roomNum = roomNum - (floorNum*100);
+            floor.setSelection(getIndex(floor, Integer.toString(floorNum), "Floor"));
+            room.setSelection(getIndex(room, Integer.toString(roomNum), "Room"));
+        }
+        //////////////////////////////////////////////////////////////////////////
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
 
@@ -93,7 +104,7 @@ public class Rally extends AppCompatActivity {
                 }
             }
         });
-        ////////////////////////////////////////////////////
+
         contactsDisplay = (EditText) findViewById(R.id.editTextPhoneNo);
         pickContacts = (Button) findViewById(R.id.btn_pick_contacts);
 
@@ -105,7 +116,6 @@ public class Rally extends AppCompatActivity {
             }
         });
 
-        ///////////////////////////****************//////////////////////////
         mContext = getApplicationContext();
         mActivity = Rally.this;
         mRelativeLayout = (RelativeLayout) findViewById(R.id.activity_display_message);
@@ -141,7 +151,6 @@ public class Rally extends AppCompatActivity {
                 mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
             }
         });
-        ///////////////////////////****************//////////////////////////
 
     }
 
@@ -170,11 +179,11 @@ public class Rally extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
-        case R.id.search:
+        case R.id.map:
             startActivity(new Intent(this, Map.class));
             return(true);
-        case R.id.login:
-            startActivity(new Intent(this, Login.class));
+        case R.id.list:
+            startActivity(new Intent(this, List.class));
             return(true);
         case R.id.rally:
             startActivity(new Intent(this, Rally.class));
@@ -197,5 +206,14 @@ public class Rally extends AppCompatActivity {
 
     public String formatDate(DatePicker date){
         return date.getMonth()+ "/" + date.getDayOfMonth() + "/" + date.getYear();
+    }
+
+    public int getIndex(Spinner s, String value, String type){
+        for (int i = 0; i < s.getCount(); i++){
+            if (s.getItemAtPosition(i).equals(type + " " + value)){
+                return i;
+            }
+        }
+        return 0;
     }
 }

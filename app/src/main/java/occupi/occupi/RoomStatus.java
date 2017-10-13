@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
-public class RoomDetail extends ActionBarActivity {
+public class RoomStatus extends ActionBarActivity {
 
     TextView textType;
     TextView textID;
@@ -29,7 +30,7 @@ public class RoomDetail extends ActionBarActivity {
     room = repo.getRoomById(_Room_Id);
 
     textType.setText(room.type);
-    textID.setText(Integer.toString(_Room_Id));
+    textID.setText(roomNameFormatting(_Room_Id));
     }
 
     @Override
@@ -40,17 +41,28 @@ public class RoomDetail extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
-        case R.id.search:
+        case R.id.map:
             startActivity(new Intent(this, Map.class));
             return(true);
-        case R.id.login:
-            startActivity(new Intent(this, Login.class));
+        case R.id.list:
+            startActivity(new Intent(this, List.class));
             return(true);
         case R.id.rally:
             startActivity(new Intent(this, Rally.class));
             return(true);
     }
         return(super.onOptionsItemSelected(item));
+    }
+
+    private String roomNameFormatting(int roomNum){
+        int floor = roomNum/100;
+        return "Floor " + floor + " Room " + (roomNum - (100*floor));
+    }
+
+    public void goRally(View v){
+        Intent intent = new Intent(this, Rally.class);
+        intent.putExtra("id", Integer.toString(_Room_Id));
+        startActivity(intent);
     }
 
 }

@@ -25,6 +25,7 @@ public class List extends ListActivity{
         setContentView(R.layout.list);
 
             DataBaseHelper db = new DataBaseHelper(this);
+            db.saveAppState(this);
             ArrayList<HashMap<String, String>> roomList =  db.getEmptyRoomList();
             if(roomList.size()!=0) {
                 ListView lv = getListView();
@@ -33,13 +34,13 @@ public class List extends ListActivity{
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         room_Id = (TextView) view.findViewById(R.id.room_Id);
                         String roomId = room_Id.getText().toString();
-                        Intent objIndent = new Intent(getApplicationContext(),RoomDetail.class);
+                        Intent objIndent = new Intent(getApplicationContext(),RoomStatus.class);
                         objIndent.putExtra("room_Id", Integer.parseInt( roomId));
                         startActivity(objIndent);
                     }
                 });
 
-                    ListAdapter adapter = new SimpleAdapter( List.this,roomList, R.layout.view_room_entry, new String[] { "id", "id"}, new int[] {R.id.room_Id, R.id.room_Num});
+                    ListAdapter adapter = new SimpleAdapter( List.this,roomList, R.layout.view_room_entry, new String[] { "id", "formattedData"}, new int[] {R.id.room_Id, R.id.room_Num});
                     setListAdapter(adapter);
             }else{
                 Toast.makeText(this,"No Rooms", Toast.LENGTH_SHORT).show();
@@ -54,11 +55,11 @@ public class List extends ListActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
-        case R.id.search:
+        case R.id.map:
             startActivity(new Intent(this, Map.class));
             return(true);
-        case R.id.login:
-            startActivity(new Intent(this, Login.class));
+        case R.id.list:
+            startActivity(new Intent(this, List.class));
             return(true);
         case R.id.rally:
             startActivity(new Intent(this, Rally.class));

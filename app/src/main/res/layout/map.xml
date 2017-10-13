@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ScrollView01"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="#cdcdcd">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_main2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:background="#cdcdcd"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -28,7 +29,7 @@
             android:text="Search For Rooms..."
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -50,87 +51,5 @@
             android:visibility="visible"
             android:alpha=".40"/>
 
-        <CheckBox
-            android:id="@+id/checkBox8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView9"
-            android:layout_alignStart="@+id/textView9"
-            android:layout_below="@+id/textView9"
-            android:text="Camera" />
-
-        <CheckBox
-            android:id="@+id/checkBox9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/checkBox8"
-            android:layout_alignStart="@+id/checkBox8"
-            android:layout_below="@+id/checkBox8"
-            android:text="Personal Computer" />
-
-        <CheckBox
-            android:id="@+id/checkBox10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/checkBox9"
-            android:layout_alignStart="@+id/checkBox9"
-            android:layout_below="@+id/checkBox9"
-            android:text="Phone" />
-
-        <CheckBox
-            android:id="@+id/checkBox7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/checkBox10"
-            android:layout_alignStart="@+id/checkBox10"
-            android:layout_below="@+id/checkBox10"
-            android:text="Television" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="300dp"
-            android:layout_toLeftOf="@+id/button3"
-            android:layout_toStartOf="@+id/button3"
-            android:text="Features:" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/checkBox7"
-            android:layout_marginEnd="19dp"
-            android:layout_marginRight="19dp"
-            android:layout_marginTop="0dp"
-            android:text="Filter" />
-
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="245dp"
-            android:entries="@array/android_dropdown_roomSize" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="245dp"
-            android:entries="@array/android_dropdown_floor" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:onClick="goList"
-            android:text="List>>" />
     </RelativeLayout>
 </ScrollView>
