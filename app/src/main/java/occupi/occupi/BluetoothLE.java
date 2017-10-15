@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;

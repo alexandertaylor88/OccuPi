@@ -34,15 +34,15 @@ public class DataBaseHelper {
                 "VALUES('1','0')");
 
         db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
-                "VALUES('201','Lounge','0')");
+                "VALUES('201','Lounge','1')");
         db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
-                "VALUES('202','Treadmill','0')");
+                "VALUES('202','Treadmill','1')");
         db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
-                "VALUES('203','Media','0')");
+                "VALUES('203','Media','1')");
         db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
-                "VALUES('204','Office','0')");
+                "VALUES('204','Office','1')");
         db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
-                "VALUES('205','Office','0')");
+                "VALUES('205','Office','1')");
         db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
                 "VALUES('206','Office','0')");
         db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
