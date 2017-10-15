@@ -15,39 +15,121 @@ public class DataBaseHelper {
         dbHelper = new DataBaseConn(context);
     }
 
-    public int insert(Room room) {
+    public void createDatabase() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        db.execSQL("DROP TABLE IF EXISTS " + Room.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + AppState.TABLE);
+
+        db.execSQL("CREATE TABLE " + Room.TABLE + "("
+                + Room.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                + Room.KEY_type + " TEXT, "
+                + Room.KEY_occupied + " INTEGER)");
+
+        db.execSQL("CREATE TABLE " + AppState.TABLE + "("
+                + AppState.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                + AppState.KEY_state + " INTEGER)");
+
+        db.execSQL("INSERT INTO " + AppState.TABLE + " (" + AppState.KEY_ID + ", " + AppState.KEY_state + ") " +
+                "VALUES('1','0')");
+
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('201','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('202','Treadmill','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('203','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('204','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('205','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('206','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('207','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('208','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('211','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('212','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('213','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('214','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('215','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('216','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('217','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('218','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('219','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('220','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('221','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('222','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('223','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('224','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('225','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('226','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('227','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('228','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('229','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('230','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('231','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('232','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('234','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('235','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('236','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('237','Treadmill','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('238','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('239','Outlook','0')");
+        db.close();
+    }
+
+    public int insert(Room room) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Room.KEY_occupied,room.occupied);
+        values.put(Room.KEY_occupied, room.occupied);
         values.put(Room.KEY_type, room.type);
         long room_Id = db.insert(Room.TABLE, null, values);
         db.close();
         return (int) room_Id;
     }
 
-    public void insertState() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        AppState state = new AppState();
-        values.put(state.KEY_state, 0);
-        values.put(state.KEY_ID, 1);
-        db.insert(state.TABLE, null, values);
-        db.close();
-    }
-
     public void delete(int room_Id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(Room.TABLE, Room.KEY_ID + "= ?", new String[] { String.valueOf(room_Id) });
+        db.delete(Room.TABLE, Room.KEY_ID + "= ?", new String[]{String.valueOf(room_Id)});
         db.close();
     }
 
     public void updateRoom(Room room) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Room.KEY_occupied,room.occupied);
+        values.put(Room.KEY_occupied, room.occupied);
         values.put(Room.KEY_type, room.type);
-        db.update(Room.TABLE, values, Room.KEY_ID + "= ?", new String[] { String.valueOf(room.room_ID) });
+        db.update(Room.TABLE, values, Room.KEY_ID + "= ?", new String[]{String.valueOf(room.room_ID)});
         db.close();
     }
 
@@ -59,8 +141,8 @@ public class DataBaseHelper {
         for (int byteCount = 0; byteCount < roomArray.length; byteCount++) {
             for (int bitCount = 0; bitCount < 8; bitCount++) {
                 mask = 1 << bitCount;
-                  values.put(Room.KEY_occupied, (((roomArray[byteCount] & mask) == 0) ? 0 : 1));
-                  db.update(Room.TABLE, values, Room.KEY_ID + "= ?", new String[] { floor + String.format("%02d", roomNum++) });
+                values.put(Room.KEY_occupied, (((roomArray[byteCount] & mask) == 0) ? 0 : 1));
+                db.update(Room.TABLE, values, Room.KEY_ID + "= ?", new String[]{floor + String.format("%02d", roomNum++)});
             }
         }
         db.close();
@@ -68,7 +150,7 @@ public class DataBaseHelper {
 
     public ArrayList<HashMap<String, String>> getRoomList() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery =  "SELECT  " +
+        String selectQuery = "SELECT  " +
                 Room.KEY_ID + "," +
                 Room.KEY_type + "," +
                 Room.KEY_occupied +
@@ -119,9 +201,9 @@ public class DataBaseHelper {
         return roomList;
     }
 
-    public Room getRoomById(int Id){
+    public Room getRoomById(int Id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery =  "SELECT  " +
+        String selectQuery = "SELECT  " +
                 Room.KEY_ID + "," +
                 Room.KEY_type + "," +
                 Room.KEY_occupied +
@@ -129,12 +211,12 @@ public class DataBaseHelper {
                 + " WHERE " +
                 Room.KEY_ID + "=?";
         Room room = new Room();
-        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(Id) } );
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(Id)});
         if (cursor.moveToFirst()) {
             do {
-                room.room_ID =cursor.getInt(cursor.getColumnIndex(Room.KEY_ID));
-                room.type =cursor.getString(cursor.getColumnIndex(Room.KEY_type));
-                room.occupied  =cursor.getString(cursor.getColumnIndex(Room.KEY_occupied));
+                room.room_ID = cursor.getInt(cursor.getColumnIndex(Room.KEY_ID));
+                room.type = cursor.getString(cursor.getColumnIndex(Room.KEY_type));
+                room.occupied = cursor.getString(cursor.getColumnIndex(Room.KEY_occupied));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -170,6 +252,19 @@ public class DataBaseHelper {
         db.close();
     }
 
+    public String tableNames() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
+        String test = "";
+        if (c.moveToFirst()) {
+            while (!c.isAfterLast()) {
+                test += c.getString(0) + " ";
+                c.moveToNext();
+            }
+        }
+        return test;
+    }
+
     public String formatListData(int id, String type) {
         int floor = id / 100;
         int room = id - (100 * floor);
@@ -179,5 +274,4 @@ public class DataBaseHelper {
             return String.format("%1$-" + 30 + "s", "Floor " + floor + " Room " + room) + type;
         }
     }
-
 }

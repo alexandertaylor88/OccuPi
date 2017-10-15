@@ -55,7 +55,6 @@ public class Rally extends AppCompatActivity {
         textPhoneNo = (EditText) findViewById(R.id.editTextPhoneNo);
         textSMS = (EditText) findViewById(R.id.editTextSMS);
 
-        //////////////////////////////////////////////////////////////////////////
         Intent intent = getIntent();
         Bundle roomData = intent.getExtras();
 
@@ -67,7 +66,6 @@ public class Rally extends AppCompatActivity {
             floor.setSelection(getIndex(floor, Integer.toString(floorNum), "Floor"));
             room.setSelection(getIndex(room, Integer.toString(roomNum), "Room"));
         }
-        //////////////////////////////////////////////////////////////////////////
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
 
@@ -155,6 +153,27 @@ public class Rally extends AppCompatActivity {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        Intent bluetooth = new Intent(this, BluetoothLE.class);
+        startService(bluetooth);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Intent bluetooth = new Intent(this, BluetoothLE.class);
+        stopService(bluetooth);
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Intent bluetooth = new Intent(this, BluetoothLE.class);
+        stopService(bluetooth);
+    }
+
+    @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -180,13 +199,15 @@ public class Rally extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.map:
-            startActivity(new Intent(this, Map.class));
+            startActivity(new Intent(this, occupi.occupi.Map.class));
             return(true);
         case R.id.list:
-            startActivity(new Intent(this, List.class));
-            return(true);
+            try {
+                startActivity(new Intent(this, occupi.occupi.List.class));
+                return (true);
+            }catch(Exception e){Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();}
         case R.id.rally:
-            startActivity(new Intent(this, Rally.class));
+            startActivity(new Intent(this, occupi.occupi.Rally.class));
             return(true);
     }
         return(super.onOptionsItemSelected(item));

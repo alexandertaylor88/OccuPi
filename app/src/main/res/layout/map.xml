@@ -35,7 +35,6 @@
             android:layout_height="200dp"
             android:adjustViewBounds="false"
             android:background="#cdcdcd"
-            android:onClick="goRoomStatus"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/floor1"
             android:layout_centerHorizontal="true"

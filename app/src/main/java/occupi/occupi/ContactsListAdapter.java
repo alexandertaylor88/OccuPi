@@ -34,13 +34,10 @@ public class ContactsListAdapter extends BaseAdapter {
     public void filter(String filterContactName){
 
 
-
         filteredContactsList.contactArrayList.clear();
-
         if(filterContactName.isEmpty() || filterContactName.length()<1){
             filteredContactsList.contactArrayList.addAll(contactsList.contactArrayList);
             this.filterContactName = "";
-
         }
         else {
             this.filterContactName = filterContactName.toLowerCase().trim();

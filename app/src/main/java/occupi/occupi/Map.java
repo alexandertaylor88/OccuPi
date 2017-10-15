@@ -16,7 +16,6 @@ public class Map extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
-        permissionsRequest();
         DataBaseHelper db = new DataBaseHelper(this);
         db.saveAppState(this);
     }
@@ -28,42 +27,39 @@ public class Map extends AppCompatActivity {
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        Intent bluetooth = new Intent(this, BluetoothLE.class);
+        startService(bluetooth);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Intent bluetooth = new Intent(this, BluetoothLE.class);
+        stopService(bluetooth);
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Intent bluetooth = new Intent(this, BluetoothLE.class);
+        stopService(bluetooth);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.map:
-            startActivity(new Intent(this, Map.class));
+            startActivity(new Intent(this, occupi.occupi.Map.class));
             return(true);
         case R.id.list:
-            startActivity(new Intent(this, List.class));
+            startActivity(new Intent(this, occupi.occupi.List.class));
             return(true);
         case R.id.rally:
-            startActivity(new Intent(this, Rally.class));
+            startActivity(new Intent(this, occupi.occupi.Rally.class));
             return(true);
     }
         return(super.onOptionsItemSelected(item));
-    }
-
-    public void goRoomDetail(View view) {
-        Intent intent = new Intent(this, RoomStatus.class);
-        startActivity(intent);
-    }
-
-    public void permissionsRequest() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            if ((checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED) || (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED)) {
-                if ((checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED) && (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED)) {
-                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.SEND_SMS},0);
-                }
-                else if ((checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED)){
-                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},0);
-                }
-                else{requestPermissions(new String[]{Manifest.permission.SEND_SMS, Manifest.permission.SEND_SMS},0);}
-            }
-        }
-    }
-
-    public void goList(View view) {
-        Intent intent = new Intent(this, List.class);
-        startActivity(intent);
     }
 
 }

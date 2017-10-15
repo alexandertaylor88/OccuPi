@@ -17,12 +17,13 @@ public class DataBaseConn extends SQLiteOpenHelper
     private static String TAG = "DataBaseConn"; // Tag just for the LogCat window
     //destination path (location) of our database on device
     private static String DB_PATH = "";
-    private static String DB_NAME ="occupi";// Database name
+    private static String DB_NAME ="occupiDB";// Database name
     private SQLiteDatabase mDataBase;
     private final Context mContext;
 
     public DataBaseConn(Context context)
     {
+
         super(context, DB_NAME, null, 1);// 1? Its database Version
         if(android.os.Build.VERSION.SDK_INT >= 17){
             DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
@@ -34,10 +35,11 @@ public class DataBaseConn extends SQLiteOpenHelper
         this.mContext = context;
     }
 
-    public void createDataBase() throws IOException
+    public String createDataBase() throws IOException
     {
         //If the database does not exist, copy it from the assets.
 
+        String test = "Database exists";
         boolean mDataBaseExist = checkDataBase();
         if(!mDataBaseExist)
         {
@@ -47,20 +49,19 @@ public class DataBaseConn extends SQLiteOpenHelper
             {
                 //Copy the database from assests
                 copyDataBase();
-                Log.e(TAG, "createDatabase database created");
+                test = "createDatabase database created";
             }
-            catch (IOException mIOException)
+            catch (Exception e)
             {
-                throw new Error("ErrorCopyingDataBase");
+                test = e.toString();
             }
         }
+        return test;
     }
 
-    //Check that the database exists here: /data/data/your package/databases/Da Name
-    private boolean checkDataBase()
+    public boolean checkDataBase()
     {
         File dbFile = new File(DB_PATH + DB_NAME);
-        //Log.v("dbFile", dbFile + "   "+ dbFile.exists());
         return dbFile.exists();
     }
 
@@ -101,7 +102,11 @@ public class DataBaseConn extends SQLiteOpenHelper
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+        try {
+            createDataBase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
