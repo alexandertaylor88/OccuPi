@@ -34,22 +34,6 @@ public class BluetoothLE extends Service {
     public void onCreate() {
         BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         BluetoothAdapter adapter = manager.getAdapter();
-        scanner = adapter.getBluetoothLeScanner();
-
-        callback = new ScanCallback() {
-            @Override
-            public void onScanResult(int callbackType, ScanResult result) {
-                ScanRecord record = result.getScanRecord();
-                byte[] manufacturerData = record.getManufacturerSpecificData(MANUFACTURER_ID);
-                DataBaseHelper db = new DataBaseHelper(BluetoothLE.this);
-                int floor = (int)(((manufacturerData[2] & 0xFF) << 8) | (manufacturerData[3] & 0xFF));
-                byte[] roomData = new byte[BYTE_ARRAY_LENGTH];
-                for(int i = 0; i < BYTE_ARRAY_LENGTH; i++) {
-                    roomData[i] = manufacturerData[i + 4];
-                }
-                db.updateOccupancy(floor, roomData);
-            }
-        };
 
         //Checks if Bluetooth is enabled. Displays error prompting user to enable if not enabled.
         //Needs testing to make sure it works right. Might need to change to startActivityForResult().
@@ -58,17 +42,42 @@ public class BluetoothLE extends Service {
             startActivity(btIntent);
         }
 
+        scanner = adapter.getBluetoothLeScanner();
+
+        callback = new ScanCallback() {
+            @Override
+            public void onScanResult(int callbackType, ScanResult result) {
+                ScanRecord record = result.getScanRecord();
+                byte[] manufacturerData = record.getManufacturerSpecificData(MANUFACTURER_ID);
+
+                if(manufacturerData != null) {
+                    DataBaseHelper db = new DataBaseHelper(BluetoothLE.this);
+                    int floor = (int)(((manufacturerData[2] & 0xFF) << 8) | (manufacturerData[3] & 0xFF));
+                    byte[] roomData = new byte[BYTE_ARRAY_LENGTH];
+                    for(int i = 0; i < BYTE_ARRAY_LENGTH; i++) {
+                        roomData[i] = manufacturerData[i + 4];
+                    }
+                    db.updateOccupancy(floor, roomData);
+
+                    Toast.makeText(getApplicationContext(),
+                            record.toString(),
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        };
+
         //filter uuids
         filters = new ArrayList<>();
         ParcelUuid serviceUuid = ParcelUuid.fromString("05b3fe32-0000-0000-0000-000000000000");
-        ParcelUuid mask = ParcelUuid.fromString("11111111-0000-0000-0000-000000000000");
+        ParcelUuid uuidMask = ParcelUuid.fromString("11111111-0000-0000-0000-000000000000");
         ScanFilter.Builder filterBuilder = new ScanFilter.Builder();
-        filterBuilder.setServiceUuid(serviceUuid, mask);
+        filterBuilder.setServiceUuid(serviceUuid, uuidMask);
         filters.add(filterBuilder.build());
 
+        //scan settings
         ScanSettings.Builder settingsBuilder = new ScanSettings.Builder();
         settingsBuilder.setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES);
-        settingsBuilder.setNumOfMatches(ScanSettings.MATCH_NUM_MAX_ADVERTISEMENT);
+        settingsBuilder.setNumOfMatches(ScanSettings.MATCH_NUM_FEW_ADVERTISEMENT);
         settings = settingsBuilder.build();
 
         handler = new Handler();
@@ -77,7 +86,7 @@ public class BluetoothLE extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //start scan
-        scanner.startScan(filters, settings, callback);
+        scanner.startScan(null, settings, callback);
 
         //stop scan
         handler.postDelayed(new Runnable() {

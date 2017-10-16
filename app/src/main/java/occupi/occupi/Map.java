@@ -26,7 +26,7 @@ public class Map extends AppCompatActivity {
         return true;
     }
 
-    @Override
+/*    @Override
     public void onResume(){
         super.onResume();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
@@ -37,7 +37,7 @@ public class Map extends AppCompatActivity {
     public void onPause(){
         super.onPause();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
-        stopService(bluetooth);
+        //stopService(bluetooth);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Map extends AppCompatActivity {
         super.onDestroy();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
         stopService(bluetooth);
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {

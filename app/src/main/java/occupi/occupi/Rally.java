@@ -152,7 +152,7 @@ public class Rally extends AppCompatActivity {
 
     }
 
-    @Override
+/*    @Override
     public void onResume(){
         super.onResume();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
@@ -171,7 +171,7 @@ public class Rally extends AppCompatActivity {
         super.onDestroy();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
         stopService(bluetooth);
-    }
+    }*/
 
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data){

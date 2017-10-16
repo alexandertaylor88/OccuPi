@@ -8,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         Intent bluetooth, intent;
         DataBaseHelper db = new DataBaseHelper(this);
         permissionsRequest();
-        bluetooth = new Intent(this, BluetoothLE.class);
-        startService(bluetooth);
+        //bluetooth = new Intent(this, BluetoothLE.class);
+        //startService(bluetooth);
         try {
             if (db.getAppState() == 0) {
                 intent = new Intent(this, occupi.occupi.Map.class);
@@ -30,27 +34,29 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, occupi.occupi.Map.class);
             this.startActivity(intent);
         }
+
+       /* final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                Intent bluetooth = new Intent(MainActivity.this, BluetoothLE.class);
+                startService(bluetooth);
+            }
+        }, 0, 30, TimeUnit.SECONDS);*/
     }
 
     @Override
-    public void onResume(){
+    protected void onResume(){
         super.onResume();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
         startService(bluetooth);
     }
 
     @Override
-    public void onPause(){
-        super.onPause();
+    protected void onStop(){
+        super.onStop();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
-        stopService(bluetooth);
-    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        Intent bluetooth = new Intent(this, BluetoothLE.class);
-        stopService(bluetooth);
+        //stopService(bluetooth);
     }
 
     @Override

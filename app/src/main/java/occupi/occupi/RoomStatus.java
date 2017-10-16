@@ -33,7 +33,7 @@ public class RoomStatus extends ActionBarActivity {
         textID.setText(roomNameFormatting(_Room_Id));
     }
 
-    @Override
+/*    @Override
     public void onResume(){
         super.onResume();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
@@ -52,7 +52,7 @@ public class RoomStatus extends ActionBarActivity {
         super.onDestroy();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
         stopService(bluetooth);
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
