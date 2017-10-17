@@ -3,10 +3,12 @@ package occupi.occupi;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -15,7 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class List extends ListActivity {
+public class List extends AppCompatActivity {
 
     TextView room_Id;
 
@@ -34,7 +36,7 @@ public class List extends ListActivity {
             roomList = db.getEmptyRoomList();
         }
         if (roomList.size() != 0) {
-            ListView lv = getListView();
+            ListView lv = (ListView) findViewById(R.id.roomList);
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -46,8 +48,7 @@ public class List extends ListActivity {
                 }
             });
 
-            ListAdapter adapter = new SimpleAdapter(List.this, roomList, R.layout.view_room_entry, new String[]{"id", "formattedData"}, new int[]{R.id.room_Id, R.id.room_Num});
-            setListAdapter(adapter);
+            lv.setAdapter(new SimpleAdapter(List.this, roomList, R.layout.view_room_entry,  new String[]{"id", "formattedData"}, new int[]{R.id.room_Id, R.id.room_Num}));
         } else {
             Toast.makeText(this, "No Rooms", Toast.LENGTH_SHORT).show();
         }

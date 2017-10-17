@@ -2,13 +2,13 @@ package occupi.occupi;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class RoomStatus extends ActionBarActivity {
+public class RoomStatus extends AppCompatActivity {
 
     TextView textType;
     TextView textID;
@@ -33,26 +33,24 @@ public class RoomStatus extends ActionBarActivity {
         textID.setText(roomNameFormatting(_Room_Id));
     }
 
-    @Override
+/*    @Override
     public void onResume(){
         super.onResume();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
         startService(bluetooth);
     }
-
     @Override
     public void onPause(){
         super.onPause();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
         stopService(bluetooth);
     }
-
     @Override
     protected void onDestroy(){
         super.onDestroy();
         Intent bluetooth = new Intent(this, BluetoothLE.class);
         stopService(bluetooth);
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

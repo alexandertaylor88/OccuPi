@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,27 @@ public class ContactsPickerActivity extends AppCompatActivity {
     ContactsLoader contactsLoader;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
+        case R.id.map:
+            startActivity(new Intent(this, occupi.occupi.Map.class));
+            return(true);
+        case R.id.list:
+            startActivity(new Intent(this, occupi.occupi.List.class));
+            return(true);
+        case R.id.rally:
+            startActivity(new Intent(this, occupi.occupi.Rally.class));
+            return(true);
+    }
+        return(super.onOptionsItemSelected(item));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts_picker);
@@ -30,12 +53,8 @@ public class ContactsPickerActivity extends AppCompatActivity {
         btnDone = (Button) findViewById(R.id.btn_done);
         txtFilter = (EditText) findViewById(R.id.txt_filter);
         txtLoadInfo = (TextView) findViewById(R.id.txt_load_progress);
-
-
         contactsListAdapter = new ContactsListAdapter(this,new ContactsList());
-
         contactsChooser.setAdapter(contactsListAdapter);
-
 
         loadContacts("");
 
@@ -68,20 +87,15 @@ public class ContactsPickerActivity extends AppCompatActivity {
                     setResult(RESULT_CANCELED);
                 }
                 else{
-
                     Intent resultIntent = new Intent();
 
                     resultIntent.putParcelableArrayListExtra("SelectedContacts", contactsListAdapter.selectedContactsList.contactArrayList);
                     setResult(RESULT_OK,resultIntent);
-
                 }
                 finish();
-
             }
         });
     }
-
-
 
     private void loadContacts(String filter){
 
@@ -103,8 +117,5 @@ public class ContactsPickerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
-
 
 }
