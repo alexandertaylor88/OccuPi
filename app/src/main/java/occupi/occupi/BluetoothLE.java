@@ -35,13 +35,6 @@ public class BluetoothLE extends Service {
         BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         BluetoothAdapter adapter = manager.getAdapter();
 
-        //Checks if Bluetooth is enabled. Displays error prompting user to enable if not enabled.
-        //Needs testing to make sure it works right. Might need to change to startActivityForResult().
-        if (adapter == null || !adapter.isEnabled()) {
-            Intent btIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(btIntent);
-        }
-
         scanner = adapter.getBluetoothLeScanner();
 
         callback = new ScanCallback() {
