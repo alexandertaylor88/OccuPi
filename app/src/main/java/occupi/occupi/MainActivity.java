@@ -17,36 +17,26 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
-    static final int REQUEST_ENABLE_BT = 1;
-    static final int REQUEST_PERMISSIONS = 2;
-
-
-
+    static final int REQUEST_ENABLE_BT = 1;     //Request code for identifying bluetooth activation activity.
+    static final int REQUEST_PERMISSIONS = 2;   //Request code for identifying permissions request activity.
+    static final int BT_LOOP_TIME_SECONDS = 30; //How often in seconds that the bluetooth service is ran.
+    private Intent bluetooth;
+    private ScheduledExecutorService executorService;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         DataBaseHelper db = new DataBaseHelper(this);
+        bluetooth = new Intent(MainActivity.this, BluetoothLE.class);
+        executorService = Executors.newSingleThreadScheduledExecutor();
 
         //Checks if database is built. If not, builds it. db.getAppState() doesn't do anything here, just used to see if the db needs to be rebuilt.
         try { db.getAppState(); }
         catch (Exception e) { db.createDatabase(); }
 
-
-        bluetoothEnableRequest();
-
-
-
-        //Threading code for later use.
-       /* final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                Intent bluetooth = new Intent(MainActivity.this, BluetoothLE.class);
-                startService(bluetooth);
-            }
-        }, 0, 30, TimeUnit.SECONDS);*/
-    }
+        permissionsRequest();
+    }//end onCreate()
 
 
     @Override
@@ -57,13 +47,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop(){
         super.onStop();
-        //For testing purposes. Toast.makeText(getApplicationContext(), "onStop() was called!", Toast.LENGTH_LONG).show();
+        //For testing purposes.
+        //Toast.makeText(getApplicationContext(), "onStop() was called!", Toast.LENGTH_LONG).show();
     }
 
+    //Called when app is killed, as the main activity is the last to be cleared from memory.
+    //THIS FUNCTION MUST CONTAIN "executorService.shutdown()" AND "stopService(bluetooth)" TO AVOID MEMORY LEAKS.
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //For testing purposes. Toast.makeText(getApplicationContext(), "onDestroy() was called!", Toast.LENGTH_LONG).show();
+        executorService.shutdown();
+        stopService(bluetooth);
+        //For testing purposes.
+        Toast.makeText(getApplicationContext(), "Main Activity onDestroy() was called!", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -98,50 +94,32 @@ public class MainActivity extends AppCompatActivity {
 
     /*                                 ########## READ ME ###########
           To ensure the bluetooth and permission checks are ran, the next activity cannot start until they finish.
-       To accomplish this, the method bluetoothEnableRequest() is called first to start the bluetooth enabling process
-       if bluetooth is disabled. If bluetooth is already enabled, the bluetoothEnableRequest method will start the service
-       and then call the permissionsRequest method to request the app's needed permissions. If bluetooth is not enabled, then
-       once the onActivityResult method finishes processing the results of the bluetooth enable request, it will call the
-       permissionsRequest() method. If the permissions are not granted yet, a request is sent to the user to allow them.
-       The method onRequestPermissionResult then handles the response to the permission request, then starts the map activity.
+       The requests are chained into each other, one calling the next once it finishes, and the last one calling the
+       startActivities() method.
 
-       So the flow is bluetooth request -> permissions requests -> start activities.
+       So the flow is permissions requests -> bluetooth request -> start activities.
+
+       Note: Bluetooth requires the location permission, so permission requests should run BEFORE the bluetooth enable check.
 
        This way, the bluetooth and permission requests will finish before the app moves away from the main activity, ensuring
-       that they recieve a user response.
+       that they receive a user response.
      */
 
-    //Checks if bluetooth is enabled or not. If not, starts and activity to request it.
-    // If it is enabled, starts the bluetooth service and calls requestPermissions().
-    public void bluetoothEnableRequest() {
-        BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        BluetoothAdapter adapter = manager.getAdapter();
-
-        if (adapter == null || !adapter.isEnabled()) {
-            Intent btIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(btIntent, REQUEST_ENABLE_BT);
-        } else {
-            Intent bluetooth = new Intent(this, BluetoothLE.class);
-            startService(bluetooth);
-            permissionsRequest();
-        }
-    }//end bluetoothEnableRequest()
-
     //Method to handle requesting needed permissions.
-    //If permissions are needed, starts activity to request them. If they are not needed, simply
-    //goes on to start the main app activities.
+    //If permissions are needed, starts activity to request them. If they are not needed, calls
+    //bluetoothEnableRequest() to check if bluetooth is enabled.
     public void permissionsRequest() {
-        String[] permissions = {Manifest.permission.READ_CONTACTS, Manifest.permission.SEND_SMS};
+        String[] permissions = {Manifest.permission.READ_CONTACTS, Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_FINE_LOCATION};
 
         if(!hasPermissions(permissions)) {
             requestPermissions(permissions, REQUEST_PERMISSIONS);
         } else {
-            startActivities();
+            bluetoothEnableRequest();
         }
     }//end permissionsRequest()
 
-    //Defining action for results of requesting SMS and CONTACTS permissions. Will need to be edited if future permissions are required.
-    //Calls startActivites() when finished.
+    //Defining action for results of requesting permissions.
+    //Calls bluetoothEnableRequest() when finishes successfully.
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -155,29 +133,41 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == 2) {
             if(grantResults.length > 0 && grantedCheck == true) {
-                startActivities();
+                bluetoothEnableRequest();
             } else {
-                Toast.makeText(getApplicationContext(), "App requires SMS and CONTACT permissions for the Rally features to function.", Toast.LENGTH_LONG).show();
-//##            //Request permissions here again instead of going to startActivities()? Will the app crash without these permissions?
-                startActivities(); //Might need to remove this or replace with permissionsRequest() again to loop asking.
+                Toast.makeText(getApplicationContext(), "App requires permissions for the Rally features to function. Please allow these permissions.", Toast.LENGTH_LONG).show();
+//##            //Request permissions here again or to startActivities()? Will the app crash without these permissions?
+                permissionsRequest();
             }
         }
     }//end onRequestPermissionsResult()
 
-    //Defining action for results of asking to enable bluetooth. Always calls permissionsRequest() after finishing.
+    //Checks if bluetooth is enabled or not. If not, starts and activity to request it.
+    // If it is enabled, starts the bluetooth service and calls startActivities().
+    public void bluetoothEnableRequest() {
+        BluetoothManager manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        BluetoothAdapter adapter = manager.getAdapter();
+
+        if (adapter == null || !adapter.isEnabled()) {
+            Intent btRequestIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(btRequestIntent, REQUEST_ENABLE_BT);
+        } else {
+            startBluetooth();
+            startActivities();
+        }
+    }//end bluetoothEnableRequest()
+
+    //Defining action for results of asking to enable bluetooth. Always calls startActivities() after finishing.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == REQUEST_ENABLE_BT) {
             if(resultCode == RESULT_OK) {
-
-//##            //Do threading here.
-                Intent bluetooth = new Intent(this, BluetoothLE.class);
-                startService(bluetooth);
+                startBluetooth();
             }
             else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(), "Bluetooth is required for app opperation. Please enable Bluetooth.", Toast.LENGTH_LONG).show();
             }
-            permissionsRequest();
+            startActivities();
         }
     }//end onActivityResult()
 
@@ -200,4 +190,17 @@ public class MainActivity extends AppCompatActivity {
         Intent mapIntent = new Intent(this, occupi.occupi.Map.class);
         startActivity(mapIntent);
     }//end startActivities()
-}
+
+    //Sets up the thread that runs the BluetoothLE service at a fixed interval of BT_LOOP_TIME_SECONDS seconds.
+    //Should call this when you want to first start the bluetooth.
+    //Make sure the main activity onDestroy() contains executiveService.shutdown() to avoid memory leaks!
+    private void startBluetooth() {
+        executorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                //Add global var if check here.
+                startService(bluetooth);
+            }
+        }, 0, BT_LOOP_TIME_SECONDS, TimeUnit.SECONDS);
+    }//end startBluetooth()
+}//end Main Activity
