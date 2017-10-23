@@ -18,17 +18,21 @@ import android.bluetooth.BluetoothManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.BitSet;
 import java.util.List;
 
 public class BluetoothLE extends Service {
     private static final int MANUFACTURER_ID = 0xBC05;
     private static final int BYTE_ARRAY_LENGTH = 14;
+    private static final int FLOORS = 4;
 
     private BluetoothLeScanner scanner;
     private ScanCallback callback;
     private Handler handler;
     private List<ScanFilter> filters;
     private ScanSettings settings;
+    private boolean[] floors;
 
     @Override
     public void onCreate() {
@@ -49,15 +53,14 @@ public class BluetoothLE extends Service {
                 if(manufacturerData != null) {
                     DataBaseHelper db = new DataBaseHelper(BluetoothLE.this);
                     int floor = (int)(((manufacturerData[2] & 0xFF) << 8) | (manufacturerData[3] & 0xFF));
-                    byte[] roomData = new byte[BYTE_ARRAY_LENGTH];
-                    for(int i = 0; i < BYTE_ARRAY_LENGTH; i++) {
-                        roomData[i] = manufacturerData[i + 4];
+                    if (!floors[floor - 1]) {
+                        floors[floor - 1] = true;
+                        byte[] roomData = new byte[BYTE_ARRAY_LENGTH];
+                        for (int i = 0; i < BYTE_ARRAY_LENGTH; i++) {
+                            roomData[i] = manufacturerData[i + 4];
+                        }
+                        db.updateOccupancy(floor, roomData);
                     }
-                    db.updateOccupancy(floor, roomData);
-
-                    Toast.makeText(getApplicationContext(),
-                            record.toString(),
-                            Toast.LENGTH_LONG).show();
                 }
             }
         };
@@ -77,10 +80,12 @@ public class BluetoothLE extends Service {
         settings = settingsBuilder.build();
 
         handler = new Handler();
+        floors = new boolean[FLOORS];
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Arrays.fill(floors, false);
         //start scan
         scanner.startScan(null, settings, callback);
 
