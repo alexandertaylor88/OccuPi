@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     static final int BT_LOOP_TIME_SECONDS = 30; //How often in seconds that the bluetooth service is ran.
     private Intent bluetooth;
     private ScheduledExecutorService executorService;
+    public static Boolean isAppForeground;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         DataBaseHelper db = new DataBaseHelper(this);
         bluetooth = new Intent(MainActivity.this, BluetoothLE.class);
         executorService = Executors.newSingleThreadScheduledExecutor();
+        isAppForeground = true;
 
         //Checks if database is built. If not, builds it. db.getAppState() doesn't do anything here, just used to see if the db needs to be rebuilt.
         try { db.getAppState(); }
@@ -42,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        //Toast.makeText(getApplicationContext(), "onResume() was called!", Toast.LENGTH_LONG).show();
+        isAppForeground = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //Toast.makeText(getApplicationContext(), "onPause() was called!", Toast.LENGTH_LONG).show();
+        isAppForeground = false;
     }
 
     @Override
@@ -195,11 +207,15 @@ public class MainActivity extends AppCompatActivity {
     //Should call this when you want to first start the bluetooth.
     //Make sure the main activity onDestroy() contains executiveService.shutdown() to avoid memory leaks!
     private void startBluetooth() {
+        int i = 0;
+        isAppForeground = true;
         executorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 //Add global var if check here.
-                startService(bluetooth);
+                if (isAppForeground == true) {
+                    startService(bluetooth);
+                }
             }
         }, 0, BT_LOOP_TIME_SECONDS, TimeUnit.SECONDS);
     }//end startBluetooth()

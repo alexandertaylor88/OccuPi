@@ -242,4 +242,17 @@ public class Rally extends AppCompatActivity {
         }
         return 0;
     }
-}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainActivity.isAppForeground = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainActivity.isAppForeground = false;
+    }
+
+}//end class Rally

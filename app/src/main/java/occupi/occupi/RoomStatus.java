@@ -93,4 +93,16 @@ public class RoomStatus extends AppCompatActivity {
         startActivity(intent);
     }
 
-}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainActivity.isAppForeground = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainActivity.isAppForeground = false;
+    }
+
+}//end class RoomStatus
