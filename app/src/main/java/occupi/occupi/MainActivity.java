@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Intent bluetooth;
     private ScheduledExecutorService executorService;
     public static Boolean isAppForeground;
+    public long scanTime;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,11 +210,13 @@ public class MainActivity extends AppCompatActivity {
     private void startBluetooth() {
         int i = 0;
         isAppForeground = true;
+        scanTime = 0;
         executorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 //Add global var if check here.
-                if (isAppForeground == true) {
+                if (isAppForeground && (scanTime + 118000) < System.currentTimeMillis()) {
+                    scanTime = System.currentTimeMillis();
                     startService(bluetooth);
                 }
             }
