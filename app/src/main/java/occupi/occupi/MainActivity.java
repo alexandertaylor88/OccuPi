@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_ENABLE_BT = 1;     //Request code for identifying bluetooth activation activity.
     static final int REQUEST_PERMISSIONS = 2;   //Request code for identifying permissions request activity.
     static final int BT_LOOP_TIME_SECONDS = 30; //How often in seconds that the bluetooth service is ran.
-    private Intent bluetooth;
+    public static Intent bluetooth;
     private ScheduledExecutorService executorService;
     public static Boolean isAppForeground;
-    public long scanTime;
+    public static long scanTime;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //Add global var if check here.
-                if (isAppForeground && (scanTime + 118000) < System.currentTimeMillis()) {
+                if (isAppForeground && (scanTime + 30000) < System.currentTimeMillis()) {
                     scanTime = System.currentTimeMillis();
                     startService(bluetooth);
                 }

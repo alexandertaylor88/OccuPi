@@ -97,6 +97,10 @@ public class RoomStatus extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         MainActivity.isAppForeground = true;
+        if ((MainActivity.scanTime + 120000) < System.currentTimeMillis()) {
+            MainActivity.scanTime = System.currentTimeMillis();
+            startService(MainActivity.bluetooth);
+        }
     }
 
     @Override
