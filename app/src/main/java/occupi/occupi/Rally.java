@@ -3,6 +3,7 @@ package occupi.occupi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,11 +60,10 @@ public class Rally extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle roomData = intent.getExtras();
 
-        if(roomData!=null)
-        {
+        if (roomData != null) {
             int roomNum = Integer.valueOf((String) roomData.get("id"));
-            int floorNum = roomNum/100;
-            roomNum = roomNum - (floorNum*100);
+            int floorNum = roomNum / 100;
+            roomNum = roomNum - (floorNum * 100);
             floor.setSelection(getIndex(floor, Integer.toString(floorNum), "Floor"));
             room.setSelection(getIndex(room, Integer.toString(roomNum), "Room"));
         }
@@ -77,7 +78,7 @@ public class Rally extends AppCompatActivity {
                     if (!Objects.equals(textPhoneNo.getText().toString(), "") && !Objects.equals(mButton.getText().toString(), "Select Date and Time") && !Objects.equals(floor.getSelectedItem().toString(), "Select Floor") && !Objects.equals(room.getSelectedItem().toString(), "Select Room")) {
                         String phoneNo = textPhoneNo.getText().toString();
                         sms = "Enterprise Meeting:" + "\n" + formatDate(date) + "\n" + formatTime(time) + "\n" + floor.getSelectedItem().toString() + "\n" + room.getSelectedItem().toString();
-                        if(!Objects.equals(textSMS.getText().toString(), "")) {
+                        if (!Objects.equals(textSMS.getText().toString(), "")) {
                             sms += "\n" + textSMS.getText().toString();
                         }
                         try {
@@ -95,10 +96,11 @@ public class Rally extends AppCompatActivity {
                         InputMethodManager imm = (InputMethodManager) getSystemService(Rally.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(textPhoneNo.getWindowToken(), 0);
                         imm.hideSoftInputFromWindow(textSMS.getWindowToken(), 0);
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "Error: Please answer all fields",
+                                Toast.LENGTH_LONG).show();
                     }
-                    else{   Toast.makeText(getApplicationContext(),
-                            "Error: Please answer all fields",
-                            Toast.LENGTH_LONG).show();}
                 }
             }
         });
@@ -109,14 +111,14 @@ public class Rally extends AppCompatActivity {
         pickContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentContactPick = new Intent(Rally.this,ContactsPickerActivity.class);
-                Rally.this.startActivityForResult(intentContactPick,CONTACT_PICK_REQUEST);
+                Intent intentContactPick = new Intent(Rally.this, ContactsPickerActivity.class);
+                Rally.this.startActivityForResult(intentContactPick, CONTACT_PICK_REQUEST);
             }
         });
 
         mContext = getApplicationContext();
         mActivity = Rally.this;
-        mRelativeLayout = (RelativeLayout) findViewById(R.id.activity_display_message);
+        mRelativeLayout = (RelativeLayout) findViewById(R.id.rally);
         mButton = (Button) findViewById(R.id.dateTime);
         mButton.setBackgroundDrawable(null);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +141,7 @@ public class Rally extends AppCompatActivity {
                 Button closeButton = (Button) customView.findViewById(R.id.set);
                 time = (TimePicker) customView.findViewById(R.id.timePicker);
                 date = (DatePicker) customView.findViewById(R.id.datePicker);
+                date.setMinDate(System.currentTimeMillis() - 1000);
                 closeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -152,35 +155,16 @@ public class Rally extends AppCompatActivity {
 
     }
 
-/*    @Override
-    public void onResume(){
-        super.onResume();
-        Intent bluetooth = new Intent(this, BluetoothLE.class);
-        startService(bluetooth);
-    }
     @Override
-    public void onPause(){
-        super.onPause();
-        Intent bluetooth = new Intent(this, BluetoothLE.class);
-        stopService(bluetooth);
-    }
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        Intent bluetooth = new Intent(this, BluetoothLE.class);
-        stopService(bluetooth);
-    }*/
-
-    @Override
-    public void onActivityResult(int requestCode,int resultCode,Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == CONTACT_PICK_REQUEST && resultCode == RESULT_OK){
+        if (requestCode == CONTACT_PICK_REQUEST && resultCode == RESULT_OK) {
             ArrayList<Contact> selectedContacts = data.getParcelableArrayListExtra("SelectedContacts");
-            String display="";
-            for(int i=0;i<selectedContacts.size();i++){
+            String display = "";
+            for (int i = 0; i < selectedContacts.size(); i++) {
                 display += selectedContacts.get(i).number();
-                if(i<selectedContacts.size() - 1){
+                if (i < selectedContacts.size() - 1) {
                     display += ", ";
                 }
             }
@@ -206,37 +190,43 @@ public class Rally extends AppCompatActivity {
                 Intent intentList = new Intent(this, occupi.occupi.List.class);
                 intentList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentList);
-                //startActivity(new Intent(this, occupi.occupi.List.class));
                 return (true);
             case R.id.rally:
                 Intent intentRally = new Intent(this, occupi.occupi.Rally.class);
                 intentRally.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentRally);
-//            startActivity(new Intent(this, occupi.occupi.Rally.class));
                 return (true);
         }
         return (super.onOptionsItemSelected(item));
     }
 
-    public String formatTime(TimePicker time){
+    public String formatTime(TimePicker time) {
         int intHour = time.getCurrentHour();
         int intMinute = time.getCurrentMinute();
         String stringMinute = "";
-        if(intMinute < 10){stringMinute = "0" + intMinute;}
-        else {stringMinute = Integer.toString(intMinute);}
-        if(intHour == 0){return "12:" + stringMinute + " AM";}
-        else if(intHour < 12){return intHour + ":" + stringMinute + " AM";}
-        else if(intHour == 12){return "12:" + stringMinute + " PM";}
-        else{return (intHour - 12) + ":" + stringMinute + " PM";}
+        if (intMinute < 10) {
+            stringMinute = "0" + intMinute;
+        } else {
+            stringMinute = Integer.toString(intMinute);
+        }
+        if (intHour == 0) {
+            return "12:" + stringMinute + " AM";
+        } else if (intHour < 12) {
+            return intHour + ":" + stringMinute + " AM";
+        } else if (intHour == 12) {
+            return "12:" + stringMinute + " PM";
+        } else {
+            return (intHour - 12) + ":" + stringMinute + " PM";
+        }
     }
 
-    public String formatDate(DatePicker date){
-        return date.getMonth()+ "/" + date.getDayOfMonth() + "/" + date.getYear();
+    public String formatDate(DatePicker date) {
+        return date.getMonth() + "/" + date.getDayOfMonth() + "/" + date.getYear();
     }
 
-    public int getIndex(Spinner s, String value, String type){
-        for (int i = 0; i < s.getCount(); i++){
-            if (s.getItemAtPosition(i).equals(type + " " + value)){
+    public int getIndex(Spinner s, String value, String type) {
+        for (int i = 0; i < s.getCount(); i++) {
+            if (s.getItemAtPosition(i).equals(type + " " + value)) {
                 return i;
             }
         }
@@ -259,4 +249,4 @@ public class Rally extends AppCompatActivity {
         MainActivity.isAppForeground = false;
     }
 
-}//end class Rally
+}

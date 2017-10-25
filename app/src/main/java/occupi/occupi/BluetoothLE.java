@@ -116,4 +116,3 @@ public class BluetoothLE extends Service {
         Toast.makeText(getApplicationContext(), "The bluetooth service was destroyed!", Toast.LENGTH_LONG).show();
     }
 }
-

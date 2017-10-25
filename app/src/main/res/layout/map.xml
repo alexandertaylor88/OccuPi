@@ -1,54 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ScrollView01"
-    android:layout_width="fill_parent"
+    android:id="@+id/map"
+    android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="#cdcdcd">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_main2"
+        android:id="@+id/baseFloorFrame"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:background="#cdcdcd"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="occupi.occupi.Map">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView2"
+        <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/baseFloor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_heightPercent="85.0%">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginTopPercent="5%"
+                app:srcCompat="@drawable/map_outline2"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true" />
+
+            <View
+                android:id="@+id/room01"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600"/>
+
+            <View
+                android:id="@+id/room02"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room03"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600"/>
+
+            <View
+                android:id="@+id/room04"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room05"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room06"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room07"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room08"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room09"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room10"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room11"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600"/>
+
+            <View
+                android:id="@+id/room12"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600"/>
+
+            <View
+                android:id="@+id/room13"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room14"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600"/>
+
+            <View
+                android:id="@+id/room15"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600"/>
+
+            <View
+                android:id="@+id/room16"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600"/>
+
+            <View
+                android:id="@+id/room17"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room18"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600"/>
+
+            <View
+                android:id="@+id/room19"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room20"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room21"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room22"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room23"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room24"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+            <View
+                android:id="@+id/room25"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room26"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room27"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room28"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room29"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room30"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room31"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room32"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room33"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room34"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room35"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room36"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <View
+                android:id="@+id/room37"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".40"
+                android:background="#03b600" />
+
+            <TextView
+                android:id="@+id/floorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/imageView2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="36dp"
+                android:text="Floor 2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/cafe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/cyberHub"
+                android:layout_alignBottom="@+id/cyberHub"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/whisperZone"
+                android:text="Cafe"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/cyberHub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/floorText"
+                android:layout_marginTop="147dp"
+                android:layout_toStartOf="@+id/floorText"
+                android:text="Cyber Hub"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/whisperZone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="21dp"
+                android:text="Whisper Zone"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <Button
+            android:id="@+id/sort_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:text="Search For Rooms..."
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:adjustViewBounds="false"
-            android:background="#cdcdcd"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/floor1"
+            android:layout_below="@+id/baseFloor"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="31dp" />
-
-        <View android:id="@+id/rectangle_at_the_top"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_width="17dp"
-            android:layout_height="21dp"
-            android:layout_marginTop="47dp"
-            android:layout_marginLeft="38dp"
-            android:background="#ff0000"
-            android:visibility="visible"
-            android:alpha=".40"/>
-
-    </RelativeLayout>
-</ScrollView>
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#40bad2"
+            android:textColor="@android:color/white"
+            android:text="Filter"/>
+    </android.support.percent.PercentRelativeLayout>
+</RelativeLayout>

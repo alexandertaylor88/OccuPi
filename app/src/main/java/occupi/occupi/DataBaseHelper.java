@@ -201,6 +201,36 @@ public class DataBaseHelper {
         return roomList;
     }
 
+    public ArrayList<HashMap<String, String>> getRoomListByType() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery;
+        String id;
+        String type;
+        String occupancy;
+            selectQuery = "SELECT  " +
+                Room.KEY_ID + "," +
+                Room.KEY_type + "," +
+                Room.KEY_occupied +
+                " FROM " + Room.TABLE;
+        ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> room = new HashMap<String, String>();
+                id = cursor.getString(cursor.getColumnIndex(Room.KEY_ID));
+                type = cursor.getString(cursor.getColumnIndex(Room.KEY_type));
+                occupancy = cursor.getString(cursor.getColumnIndex(Room.KEY_occupied));
+                room.put("id", id);
+                room.put("type", type);
+                room.put("occupancy", occupancy);
+                roomList.add(room);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return roomList;
+    }
+
     public Room getRoomById(int Id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT  " +

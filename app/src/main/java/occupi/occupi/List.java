@@ -2,6 +2,8 @@ package occupi.occupi;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -9,12 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.annotation.BoolRes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +27,92 @@ import java.util.HashMap;
 public class List extends AppCompatActivity {
 
     TextView room_Id;
+    private DataBaseConn dbHelper;
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //This is a function that filters the RoomType by the filterType passed into the function.
+    public ArrayList<HashMap<String, String>> getFilterRoomList(String filter) {
+        String id;
+        String type;
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery = "SELECT  " +
+                Room.KEY_ID + "," +
+                Room.KEY_type + "," +
+                Room.KEY_occupied +
+                " FROM " + Room.TABLE
+                + " WHERE " +
+                Room.KEY_type + "=" + filter;
+        ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> room = new HashMap<String, String>();
+                id = cursor.getString(cursor.getColumnIndex(Room.KEY_ID));
+                type = cursor.getString(cursor.getColumnIndex(Room.KEY_type));
+                room.put("id", id);
+                room.put("type", type);
+                roomList.add(room);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return roomList;
+    }//End getFilterRoomList
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //This functions job is to filter the rooms in the database
+    public void filterRoomType(View view){
+        //This variable will store the users filter option
+        String filterChoice = "";
+
+        //Check to see if the button is checked
+        boolean checked = ((RadioButton) view).isChecked();
+
+        //Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.loungeButton:
+                if (checked)
+                    //filterChoice = "Lounge";
+                    //Toast.makeText(getApplicationContext(), "Lounge has been selected.", Toast.LENGTH_SHORT).show();
+                    getFilterRoomList("Lounge");
+                break;
+            case R.id.mediaButton:
+                if (checked)
+                    //filterChoice = "Media";
+                    //Toast.makeText(getApplicationContext(), "Media has been selected.", Toast.LENGTH_SHORT).show();
+                    getFilterRoomList("Media");
+                break;
+            case R.id.officeButton:
+                if (checked)
+                    //filterChoice = "Office";
+                    //Toast.makeText(getApplicationContext(), "Office has been selected.", Toast.LENGTH_SHORT).show();
+                    getFilterRoomList("Office");
+                break;
+            case R.id.outlookButton:
+                if (checked)
+                    //filterChoice = "Outlook";
+                    //Toast.makeText(getApplicationContext(), "Outlook has been selected.", Toast.LENGTH_SHORT).show();
+                    getFilterRoomList("Outlook");
+                break;
+            case R.id.treadmillButton:
+                if (checked)
+                    //filterChoice = "Treadmill";
+                    //Toast.makeText(getApplicationContext(), "Treadmill has been selected.", Toast.LENGTH_SHORT).show();
+                    getFilterRoomList("Treadmill");
+                break;
+            case R.id.whiteboardButton:
+                if (checked)
+                    //filterChoice = "Whiteboard";
+                    //Toast.makeText(getApplicationContext(), "Whiteboard has been selected.", Toast.LENGTH_SHORT).show();
+                    getFilterRoomList("Whiteboard");
+                break;
+
+            //Toast.makeText(getApplicationContext(), "Please select a filer option.", Toast.LENGTH_SHORT).show();
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +121,28 @@ public class List extends AppCompatActivity {
 
         DataBaseHelper db = new DataBaseHelper(this);
         db.saveAppState(this);
+
+        Button reset = (Button) findViewById (R.id.resetButton);
+        Button sort = (Button) findViewById(R.id.sortButton);
+
+        reset.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // Call getEmptyRoomList in DataBaseHelper Class
+                Toast.makeText(getApplicationContext(), "Reset Button Clicked.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        sort.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // Call FilterRoomType();
+                filterRoomType(v);
+                Toast.makeText(getApplicationContext(), "Sort Button Clicked.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ArrayList<HashMap<String, String>> roomList = null;
         try {
@@ -103,5 +216,5 @@ public class List extends AppCompatActivity {
         MainActivity.isAppForeground = false;
     }
 
-}//end class
+}
 

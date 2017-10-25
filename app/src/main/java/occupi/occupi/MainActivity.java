@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ScheduledExecutorService executorService;
     public static Boolean isAppForeground;
     public static long scanTime;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,11 +109,8 @@ public class MainActivity extends AppCompatActivity {
           To ensure the bluetooth and permission checks are ran, the next activity cannot start until they finish.
        The requests are chained into each other, one calling the next once it finishes, and the last one calling the
        startActivities() method.
-
        So the flow is permissions requests -> bluetooth request -> start activities.
-
        Note: Bluetooth requires the location permission, so permission requests should run BEFORE the bluetooth enable check.
-
        This way, the bluetooth and permission requests will finish before the app moves away from the main activity, ensuring
        that they receive a user response.
      */

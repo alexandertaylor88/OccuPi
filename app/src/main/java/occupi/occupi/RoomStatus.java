@@ -109,4 +109,4 @@ public class RoomStatus extends AppCompatActivity {
         MainActivity.isAppForeground = false;
     }
 
-}//end class RoomStatus
+}
