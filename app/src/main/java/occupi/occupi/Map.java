@@ -609,7 +609,7 @@ public class Map extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         MainActivity.isAppForeground = true;
-        if ((MainActivity.scanTime + 120000) < System.currentTimeMillis()) {
+        if ((MainActivity.scanTime + 120000) < System.currentTimeMillis() && MainActivity.bluetoothEnabled) {
             MainActivity.scanTime = System.currentTimeMillis();
             startService(MainActivity.bluetooth);
         }

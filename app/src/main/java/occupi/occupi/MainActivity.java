@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ScheduledExecutorService executorService;
     public static Boolean isAppForeground;
     public static long scanTime;
+    public static Boolean bluetoothEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
             Intent btRequestIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(btRequestIntent, REQUEST_ENABLE_BT);
         } else {
+            bluetoothEnabled = true;
             startBluetooth();
             startActivities();
         }
@@ -173,8 +175,10 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == REQUEST_ENABLE_BT) {
             if(resultCode == RESULT_OK) {
                 startBluetooth();
+                bluetoothEnabled = true;
             }
             else if (resultCode == RESULT_CANCELED) {
+                bluetoothEnabled = false;
                 Toast.makeText(getApplicationContext(), "Bluetooth is required for app opperation. Please enable Bluetooth.", Toast.LENGTH_LONG).show();
             }
             startActivities();
@@ -207,12 +211,12 @@ public class MainActivity extends AppCompatActivity {
     private void startBluetooth() {
         int i = 0;
         isAppForeground = true;
-        scanTime = 0;
+        scanTime = System.currentTimeMillis() - 30001;
         executorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 //Add global var if check here.
-                if (isAppForeground && (scanTime + 30000) < System.currentTimeMillis()) {
+                if (isAppForeground && (scanTime + 30000) < System.currentTimeMillis() && bluetoothEnabled) {
                     scanTime = System.currentTimeMillis();
                     startService(bluetooth);
                 }
