@@ -420,6 +420,279 @@
                 android:alpha=".40"
                 android:background="#03b600"></View>
 
+            <TextView
+                android:id="@+id/floorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="45px"
+                android:text="Floor #" />
+
+            <TextView
+                android:id="@+id/cyberHub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60px"
+                android:layout_marginTop="325px"
+                android:gravity="center"
+                android:text="Cyber\nHub" />
+
+            <TextView
+                android:id="@+id/cafeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="245px"
+                android:layout_marginTop="330px"
+                android:text="Cafe" />
+
+            <TextView
+                android:id="@+id/whisperZoneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="620px"
+                android:text="Whisper Zone" />
+
+            <TextView
+                android:id="@+id/room28Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17px"
+                android:layout_marginTop="20px"
+                android:text="28" />
+
+            <TextView
+                android:id="@+id/room31Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="311px"
+                android:layout_marginTop="20px"
+                android:text="31" />
+
+            <TextView
+                android:id="@+id/room27Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17px"
+                android:layout_marginTop="72px"
+                android:text="27" />
+
+            <TextView
+                android:id="@+id/room32Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="311px"
+                android:layout_marginTop="72px"
+                android:text="32" />
+
+            <TextView
+                android:id="@+id/room26Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17px"
+                android:layout_marginTop="107px"
+                android:text="26" />
+
+            <TextView
+                android:id="@+id/room33Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="311px"
+                android:layout_marginTop="107px"
+                android:text="33" />
+
+            <TextView
+                android:id="@+id/room25Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17px"
+                android:layout_marginTop="141px"
+                android:text="25" />
+
+            <TextView
+                android:id="@+id/room34Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="311px"
+                android:layout_marginTop="141px"
+                android:text="34" />
+
+            <TextView
+                android:id="@+id/room24Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17px"
+                android:layout_marginTop="176px"
+                android:text="24" />
+
+            <TextView
+                android:id="@+id/room35Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="311px"
+                android:layout_marginTop="176px"
+                android:text="35" />
+
+            <TextView
+                android:id="@+id/room23Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17px"
+                android:layout_marginTop="211px"
+                android:text="23" />
+
+            <TextView
+                android:id="@+id/room36Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="314px"
+                android:layout_marginTop="211px"
+                android:text="36" />
+
+            <TextView
+                android:id="@+id/room22Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14px"
+                android:layout_marginTop="246px"
+                android:text="22" />
+
+            <TextView
+                android:id="@+id/room37Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="317px"
+                android:layout_marginTop="246px"
+                android:text="37" />
+
+            <TextView
+                android:id="@+id/room21Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12px"
+                android:layout_marginTop="282px"
+                android:text="21" />
+
+            <TextView
+                android:id="@+id/room18Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="387px"
+                android:text="18" />
+
+            <TextView
+                android:id="@+id/room17Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13px"
+                android:layout_marginTop="422px"
+                android:text="17" />
+
+            <TextView
+                android:id="@+id/room16Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16px"
+                android:layout_marginTop="457px"
+                android:text="16" />
+
+            <TextView
+                android:id="@+id/room15Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16px"
+                android:layout_marginTop="492px"
+                android:text="15" />
+
+            <TextView
+                android:id="@+id/room14Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16px"
+                android:layout_marginTop="527px"
+                android:text="14" />
+
+            <TextView
+                android:id="@+id/room13Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16px"
+                android:layout_marginTop="562px"
+                android:text="13" />
+
+            <TextView
+                android:id="@+id/room12Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16px"
+                android:layout_marginTop="597px"
+                android:text="12" />
+
+            <TextView
+                android:id="@+id/room11Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17px"
+                android:layout_marginTop="647px"
+                android:text="11" />
+
+            <TextView
+                android:id="@+id/room2Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="323px"
+                android:layout_marginTop="422px"
+                android:text="2" />
+
+            <TextView
+                android:id="@+id/room3Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="319px"
+                android:layout_marginTop="457px"
+                android:text="3" />
+
+            <TextView
+                android:id="@+id/room4Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="319px"
+                android:layout_marginTop="492px"
+                android:text="4" />
+
+            <TextView
+                android:id="@+id/room5Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="319px"
+                android:layout_marginTop="527px"
+                android:text="5" />
+
+            <TextView
+                android:id="@+id/room6Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="319px"
+                android:layout_marginTop="562px"
+                android:text="6" />
+
+            <TextView
+                android:id="@+id/room7Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="319px"
+                android:layout_marginTop="597px"
+                android:text="7" />
+
+            <TextView
+                android:id="@+id/room8Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="319px"
+                android:layout_marginTop="647px"
+                android:text="8" />
+
         </RelativeLayout>
 
         <Button

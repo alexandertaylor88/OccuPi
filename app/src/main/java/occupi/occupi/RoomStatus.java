@@ -33,25 +33,6 @@ public class RoomStatus extends AppCompatActivity {
         textID.setText(roomNameFormatting(_Room_Id));
     }
 
-/*    @Override
-    public void onResume(){
-        super.onResume();
-        Intent bluetooth = new Intent(this, BluetoothLE.class);
-        startService(bluetooth);
-    }
-    @Override
-    public void onPause(){
-        super.onPause();
-        Intent bluetooth = new Intent(this, BluetoothLE.class);
-        stopService(bluetooth);
-    }
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        Intent bluetooth = new Intent(this, BluetoothLE.class);
-        stopService(bluetooth);
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -63,20 +44,18 @@ public class RoomStatus extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.map:
                 Intent intentMap = new Intent(this, occupi.occupi.Map.class);
-                intentMap.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentMap);
+                finish();
                 return (true);
             case R.id.list:
                 Intent intentList = new Intent(this, occupi.occupi.List.class);
-                intentList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentList);
-                //startActivity(new Intent(this, occupi.occupi.List.class));
+                finish();
                 return (true);
             case R.id.rally:
                 Intent intentRally = new Intent(this, occupi.occupi.Rally.class);
-                intentRally.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentRally);
-//            startActivity(new Intent(this, occupi.occupi.Rally.class));
+                finish();
                 return (true);
         }
         return (super.onOptionsItemSelected(item));

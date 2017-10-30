@@ -94,7 +94,7 @@ public class Map extends AppCompatActivity {
         room39 = (View) findViewById(R.id.room39);
 
         DataBaseHelper db = new DataBaseHelper(Map.this);
-        roomVisibility("2", "empty", db.getRoomListByType());
+        roomVisibility("2", "empty", db.getRoomMap());
         room9.setVisibility(View.INVISIBLE);
         room10.setVisibility(View.INVISIBLE);
 
@@ -131,7 +131,7 @@ public class Map extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         DataBaseHelper db = new DataBaseHelper(Map.this);
-                        roomVisibility("2", "empty", db.getRoomListByType());
+                        roomVisibility("2", "empty", db.getRoomMap());
                         mPopupWindow.dismiss();
                     }
                 });
@@ -172,7 +172,7 @@ public class Map extends AppCompatActivity {
     public void sortRooms(String type, String floor) {
         DataBaseHelper db = new DataBaseHelper(Map.this);
         ArrayList<HashMap<String, String>> roomList = null;
-        roomList = db.getRoomListByType();
+        roomList = db.getRoomMap();
         if (roomList.size() != 0) {
             roomVisibility(floor, type, roomList);
         } else {

@@ -203,7 +203,7 @@ public class DataBaseHelper {
         return roomList;
     }
 
-    public ArrayList<HashMap<String, String>> getRoomListByType() {
+    public ArrayList<HashMap<String, String>> getRoomMap() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery;
         String id;
@@ -225,6 +225,36 @@ public class DataBaseHelper {
                 room.put("id", id);
                 room.put("type", type);
                 room.put("occupancy", occupancy);
+                roomList.add(room);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return roomList;
+    }
+
+    public ArrayList<HashMap<String, String>> filterRoomList(String type) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery;
+        String id;
+        selectQuery = "SELECT  " +
+                Room.KEY_ID + "," +
+                Room.KEY_type + "," +
+                Room.KEY_occupied +
+                " FROM " + Room.TABLE
+                + " WHERE " +
+                Room.KEY_type + "='" + type +
+                "' AND " + Room.KEY_occupied + "=0";;
+        ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                HashMap<String, String> room = new HashMap<String, String>();
+                id = cursor.getString(cursor.getColumnIndex(Room.KEY_ID));
+                type = cursor.getString(cursor.getColumnIndex(Room.KEY_type));
+                room.put("id", id);
+                room.put("type", type);
+                room.put("formattedData", formatListData(Integer.valueOf(id), type));
                 roomList.add(room);
             } while (cursor.moveToNext());
         }

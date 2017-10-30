@@ -183,18 +183,18 @@ public class Rally extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.map:
                 Intent intentMap = new Intent(this, occupi.occupi.Map.class);
-                intentMap.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentMap);
+                finish();
                 return (true);
             case R.id.list:
                 Intent intentList = new Intent(this, occupi.occupi.List.class);
-                intentList.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentList);
+                finish();
                 return (true);
             case R.id.rally:
                 Intent intentRally = new Intent(this, occupi.occupi.Rally.class);
-                intentRally.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intentRally);
+                finish();
                 return (true);
         }
         return (super.onOptionsItemSelected(item));
