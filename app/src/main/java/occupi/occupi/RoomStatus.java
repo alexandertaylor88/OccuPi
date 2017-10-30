@@ -88,4 +88,8 @@ public class RoomStatus extends AppCompatActivity {
         MainActivity.isAppForeground = false;
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
 }

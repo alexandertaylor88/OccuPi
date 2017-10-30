@@ -412,4 +412,8 @@ public class Map extends AppCompatActivity {
         super.onPause();
         MainActivity.isAppForeground = false;
     }
+
+    @Override
+    public void onBackPressed() {
+    }
 }

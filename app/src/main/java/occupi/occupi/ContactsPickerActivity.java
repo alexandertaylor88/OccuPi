@@ -140,4 +140,8 @@ public class ContactsPickerActivity extends AppCompatActivity {
         MainActivity.isAppForeground = false;
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
 }
