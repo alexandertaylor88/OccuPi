@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
     static final int REQUEST_ENABLE_BT = 1;     //Request code for identifying bluetooth activation activity.
     static final int REQUEST_PERMISSIONS = 2;   //Request code for identifying permissions request activity.
-    static final int BT_LOOP_TIME_SECONDS = 30; //How often in seconds that the bluetooth service is ran.
+    static final int BT_LOOP_TIME_SECONDS = 120; //How often in seconds that the bluetooth service is ran.
     public static Intent bluetooth;
     private ScheduledExecutorService executorService;
     public static Boolean isAppForeground;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //Toast for testing purposes
         //Toast.makeText(getApplicationContext(), "onResume() was called!", Toast.LENGTH_LONG).show();
         isAppForeground = true;
     }
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        //Toast for testing purposes
         //Toast.makeText(getApplicationContext(), "onPause() was called!", Toast.LENGTH_LONG).show();
         isAppForeground = false;
     }
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        //For testing purposes.
+        //Toast for testing purposes
         //Toast.makeText(getApplicationContext(), "onStop() was called!", Toast.LENGTH_LONG).show();
     }
 
@@ -75,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         executorService.shutdown();
         stopService(bluetooth);
-        //For testing purposes.
-        Toast.makeText(getApplicationContext(), "Main Activity onDestroy() was called!", Toast.LENGTH_LONG).show();
+        //Toast for testing purposes
+        //Toast.makeText(getApplicationContext(), "Main Activity onDestroy() was called!", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -148,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 bluetoothEnableRequest();
             } else {
                 Toast.makeText(getApplicationContext(), "App requires permissions for the Rally features to function. Please allow these permissions.", Toast.LENGTH_LONG).show();
-//##            //Request permissions here again or to startActivities()? Will the app crash without these permissions?
+//##            //Currently looping to always request needed permissions, even when denied.
                 permissionsRequest();
             }
         }

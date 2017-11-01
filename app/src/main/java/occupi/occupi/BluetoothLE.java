@@ -42,7 +42,7 @@ public class BluetoothLE extends Service {
         scanner = adapter.getBluetoothLeScanner();
 
         //Toast for testing purposes.
-        Toast.makeText(getApplicationContext(), "Bluetooth onCreate() was called!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Bluetooth onCreate() was called!", Toast.LENGTH_LONG).show();
 
         callback = new ScanCallback() {
             @Override
@@ -50,9 +50,9 @@ public class BluetoothLE extends Service {
                 ScanRecord record = result.getScanRecord();
                 byte[] manufacturerData = record.getManufacturerSpecificData(MANUFACTURER_ID);
 
-                if(manufacturerData != null) {
+                if (manufacturerData != null) {
                     DataBaseHelper db = new DataBaseHelper(BluetoothLE.this);
-                    int floor = (int)(((manufacturerData[2] & 0xFF) << 8) | (manufacturerData[3] & 0xFF));
+                    int floor = (int) (((manufacturerData[2] & 0xFF) << 8) | (manufacturerData[3] & 0xFF));
                     if (!floors[floor - 1]) {
                         floors[floor - 1] = true;
                         byte[] roomData = new byte[BYTE_ARRAY_LENGTH];
@@ -98,7 +98,7 @@ public class BluetoothLE extends Service {
         }, 10000);
 
         //Toast for testing purposes.
-        Toast.makeText(getApplicationContext(), "Bluetooth onStartCommand() was called!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Bluetooth onStartCommand() was called!", Toast.LENGTH_LONG).show();
 
         return START_STICKY;
     }
@@ -113,6 +113,6 @@ public class BluetoothLE extends Service {
     public void onDestroy() {
         super.onDestroy();
         //Toast for testing purposes.
-        Toast.makeText(getApplicationContext(), "The bluetooth service was destroyed!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "The bluetooth service was destroyed!", Toast.LENGTH_LONG).show();
     }
 }

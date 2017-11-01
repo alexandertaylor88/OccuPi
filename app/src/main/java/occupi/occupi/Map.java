@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -138,32 +139,32 @@ public class Map extends AppCompatActivity {
                     }
                 });
                 Button sortButton = (Button) customView.findViewById(R.id.sortButton);
-                    sortButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (floor.getSelectedItem().toString().equals("Select Floor")) {
-                                Toast.makeText(Map.this, "Please select a floor", Toast.LENGTH_SHORT).show();
+                sortButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (floor.getSelectedItem().toString().equals("Select Floor")) {
+                            Toast.makeText(Map.this, "Please select a floor", Toast.LENGTH_SHORT).show();
+                        } else {
+                            if (loungeButton.isChecked()) {
+                                sortRooms(String.valueOf(loungeButton.getText()), floor.getSelectedItem().toString());
+                            } else if (mediaButton.isChecked()) {
+                                sortRooms(String.valueOf(mediaButton.getText()), floor.getSelectedItem().toString());
+                            } else if (officeButton.isChecked()) {
+                                sortRooms(String.valueOf(officeButton.getText()), floor.getSelectedItem().toString());
+                            } else if (outlookButton.isChecked()) {
+                                sortRooms(String.valueOf(outlookButton.getText()), floor.getSelectedItem().toString());
+                            } else if (treadmillButton.isChecked()) {
+                                sortRooms(String.valueOf(treadmillButton.getText()), floor.getSelectedItem().toString());
+                            } else if (whiteBoardButton.isChecked()) {
+                                sortRooms(String.valueOf(whiteBoardButton.getText()), floor.getSelectedItem().toString());
                             } else {
-                                    if (loungeButton.isChecked()) {
-                                        sortRooms(String.valueOf(loungeButton.getText()), floor.getSelectedItem().toString());
-                                    } else if (mediaButton.isChecked()) {
-                                        sortRooms(String.valueOf(mediaButton.getText()), floor.getSelectedItem().toString());
-                                    } else if (officeButton.isChecked()) {
-                                        sortRooms(String.valueOf(officeButton.getText()), floor.getSelectedItem().toString());
-                                    } else if (outlookButton.isChecked()) {
-                                        sortRooms(String.valueOf(outlookButton.getText()), floor.getSelectedItem().toString());
-                                    } else if (treadmillButton.isChecked()) {
-                                        sortRooms(String.valueOf(treadmillButton.getText()), floor.getSelectedItem().toString());
-                                    } else if (whiteBoardButton.isChecked()) {
-                                        sortRooms(String.valueOf(whiteBoardButton.getText()), floor.getSelectedItem().toString());
-                                    } else {
-                                        sortRooms("empty", floor.getSelectedItem().toString());
-                                    }
-                                    mPopupWindow.dismiss();
+                                sortRooms("empty", floor.getSelectedItem().toString());
                             }
+                            mPopupWindow.dismiss();
                         }
-                    });
-                    mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
+                    }
+                });
+                mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
             }
         });
 
