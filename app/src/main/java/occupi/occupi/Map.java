@@ -20,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -53,6 +52,7 @@ public class Map extends AppCompatActivity {
             setContentView(R.layout.map_large);
         }
 
+        floorText = (TextView) findViewById(R.id.floorText);
         room1 = (View) findViewById(R.id.room01);
         room2 = (View) findViewById(R.id.room02);
         room3 = (View) findViewById(R.id.room03);
@@ -94,7 +94,8 @@ public class Map extends AppCompatActivity {
         room39 = (View) findViewById(R.id.room39);
 
         DataBaseHelper db = new DataBaseHelper(Map.this);
-        roomVisibility("2", "empty", db.getRoomMap());
+        db.saveAppState(this);
+        roomVisibility("empty", db.getRoomMap("2"));
         room9.setVisibility(View.INVISIBLE);
         room10.setVisibility(View.INVISIBLE);
 
@@ -114,6 +115,7 @@ public class Map extends AppCompatActivity {
                         customView.getMeasuredWidth(),
                         customView.getMeasuredHeight()
                 );
+                mPopupWindow.setFocusable(true);
 
                 if (Build.VERSION.SDK_INT >= 21) {
                     mPopupWindow.setElevation(5.0f);
@@ -131,39 +133,37 @@ public class Map extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         DataBaseHelper db = new DataBaseHelper(Map.this);
-                        roomVisibility("2", "empty", db.getRoomMap());
+                        roomVisibility("empty", db.getRoomMap("2"));
                         mPopupWindow.dismiss();
                     }
                 });
                 Button sortButton = (Button) customView.findViewById(R.id.sortButton);
-                sortButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (rg.getCheckedRadioButtonId() == -1) {
-//                            //nothing's selected
-                        } else {
-                            try {
-                                if (loungeButton.isChecked()) {
-                                    sortRooms(String.valueOf(loungeButton.getText()), floor.getSelectedItem().toString());
-                                } else if (mediaButton.isChecked()) {
-                                    sortRooms(String.valueOf(mediaButton.getText()), floor.getSelectedItem().toString());
-                                } else if (officeButton.isChecked()) {
-                                    sortRooms(String.valueOf(officeButton.getText()), floor.getSelectedItem().toString());
-                                } else if (outlookButton.isChecked()) {
-                                    sortRooms(String.valueOf(outlookButton.getText()), floor.getSelectedItem().toString());
-                                } else if (treadmillButton.isChecked()) {
-                                    sortRooms(String.valueOf(treadmillButton.getText()), floor.getSelectedItem().toString());
-                                } else if (whiteBoardButton.isChecked()) {
-                                    sortRooms(String.valueOf(whiteBoardButton.getText()), floor.getSelectedItem().toString());
-                                }
-                            } catch (Exception e) {
-                                // Toast.makeText(Map.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    sortButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (floor.getSelectedItem().toString().equals("Select Floor")) {
+                                Toast.makeText(Map.this, "Please select a floor", Toast.LENGTH_SHORT).show();
+                            } else {
+                                    if (loungeButton.isChecked()) {
+                                        sortRooms(String.valueOf(loungeButton.getText()), floor.getSelectedItem().toString());
+                                    } else if (mediaButton.isChecked()) {
+                                        sortRooms(String.valueOf(mediaButton.getText()), floor.getSelectedItem().toString());
+                                    } else if (officeButton.isChecked()) {
+                                        sortRooms(String.valueOf(officeButton.getText()), floor.getSelectedItem().toString());
+                                    } else if (outlookButton.isChecked()) {
+                                        sortRooms(String.valueOf(outlookButton.getText()), floor.getSelectedItem().toString());
+                                    } else if (treadmillButton.isChecked()) {
+                                        sortRooms(String.valueOf(treadmillButton.getText()), floor.getSelectedItem().toString());
+                                    } else if (whiteBoardButton.isChecked()) {
+                                        sortRooms(String.valueOf(whiteBoardButton.getText()), floor.getSelectedItem().toString());
+                                    } else {
+                                        sortRooms("empty", floor.getSelectedItem().toString());
+                                    }
+                                    mPopupWindow.dismiss();
                             }
-                            mPopupWindow.dismiss();
                         }
-                    }
-                });
-                mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
+                    });
+                    mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
             }
         });
 
@@ -172,15 +172,20 @@ public class Map extends AppCompatActivity {
     public void sortRooms(String type, String floor) {
         DataBaseHelper db = new DataBaseHelper(Map.this);
         ArrayList<HashMap<String, String>> roomList = null;
-        roomList = db.getRoomMap();
-        if (roomList.size() != 0) {
-            roomVisibility(floor, type, roomList);
+        roomList = db.getRoomMap(floor);
+        if (roomList.size() > 0) {
+            floorText.setText(floor);
+            roomVisibility(type, roomList);
         } else {
-            Toast.makeText(Map.this, "No Rooms", Toast.LENGTH_SHORT).show();
+            if (type.equals("empty")) {
+                Toast.makeText(Map.this, "There are no empty rooms on " + floor.toLowerCase(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(Map.this, "There are no empty " + type.toLowerCase() + " rooms on " + floor.toLowerCase(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    public void roomVisibility(String floor, String type, ArrayList<HashMap<String, String>> unoccupiedRooms) {
+    public void roomVisibility(String type, ArrayList<HashMap<String, String>> unoccupiedRooms) {
 
         if ((type.equals("empty") || unoccupiedRooms.get(0).get("type").equals(type)) && (unoccupiedRooms.get(0).get("occupancy").equals("0"))) {
             room1.setVisibility(View.VISIBLE);

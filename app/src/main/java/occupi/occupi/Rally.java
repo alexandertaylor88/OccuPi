@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.telephony.SmsManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -124,32 +125,40 @@ public class Rally extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+                try {
+                    LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
-                View customView = inflater.inflate(R.layout.date_time, null);
-                customView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                mPopupWindow = new PopupWindow(
-                        customView,
-                        customView.getMeasuredWidth(),
-                        customView.getMeasuredHeight()
-                );
+                    View customView = inflater.inflate(R.layout.date_time, null);
+                    customView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                    mPopupWindow = new PopupWindow(
+                            customView,
+                            customView.getMeasuredWidth(),
+                            customView.getMeasuredHeight()
+                    );
+                    mPopupWindow.setFocusable(true);
 
-                if (Build.VERSION.SDK_INT >= 21) {
-                    mPopupWindow.setElevation(5.0f);
-                }
-
-                Button closeButton = (Button) customView.findViewById(R.id.set);
-                time = (TimePicker) customView.findViewById(R.id.timePicker);
-                date = (DatePicker) customView.findViewById(R.id.datePicker);
-                date.setMinDate(System.currentTimeMillis() - 1000);
-                closeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mPopupWindow.dismiss();
-                        mButton.setText("Meeting Time:\n" + formatTime(time) + "\n" + formatDate(date));
+                    if (Build.VERSION.SDK_INT >= 21) {
+                        mPopupWindow.setElevation(5.0f);
                     }
-                });
-                mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
+
+                    Button closeButton = (Button) customView.findViewById(R.id.set);
+                    time = (TimePicker) customView.findViewById(R.id.timePicker);
+                    date = (DatePicker) customView.findViewById(R.id.datePicker);
+                    date.setMinDate(System.currentTimeMillis() - 1000);
+                    closeButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mPopupWindow.dismiss();
+                            mButton.setText("Meeting Time:\n" + formatTime(time) + "\n" + formatDate(date));
+                        }
+                    });
+                    mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER, 0, 0);
+
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(),
+                            e.toString(),
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 

@@ -203,17 +203,22 @@ public class DataBaseHelper {
         return roomList;
     }
 
-    public ArrayList<HashMap<String, String>> getRoomMap() {
+    public ArrayList<HashMap<String, String>> getRoomMap(String flr) {
+        int floor = Integer.parseInt(flr.replaceAll("\\D+","")) * 100;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery;
         String id;
         String type;
         String occupancy;
-            selectQuery = "SELECT  " +
+        selectQuery = "SELECT  " +
                 Room.KEY_ID + "," +
                 Room.KEY_type + "," +
                 Room.KEY_occupied +
-                " FROM " + Room.TABLE;
+                " FROM " + Room.TABLE
+                + " WHERE " +
+                Room.KEY_ID + " BETWEEN " +
+                floor + " AND " + (floor + 99);
+        ;
         ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
@@ -244,7 +249,8 @@ public class DataBaseHelper {
                 " FROM " + Room.TABLE
                 + " WHERE " +
                 Room.KEY_type + "='" + type +
-                "' AND " + Room.KEY_occupied + "=0";;
+                "' AND " + Room.KEY_occupied + "=0";
+        ;
         ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {

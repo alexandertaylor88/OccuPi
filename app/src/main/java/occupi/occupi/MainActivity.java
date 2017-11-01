@@ -7,12 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.BoolRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static Boolean isAppForeground;
     public static long scanTime;
     public static Boolean bluetoothEnabled;
+    private boolean appState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +36,19 @@ public class MainActivity extends AppCompatActivity {
         isAppForeground = true;
 
         //Checks if database is built. If not, builds it. db.getAppState() doesn't do anything here, just used to see if the db needs to be rebuilt.
-        try { db.getAppState(); }
-        catch (Exception e) { db.createDatabase(); }
+        try {
+            appState = (db.getAppState() == 0) ? true : false;
+        } catch (Exception e) {
+            db.createDatabase();
+            appState = true;
+        }
 
         permissionsRequest();
     }//end onCreate()
 
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         //Toast.makeText(getApplicationContext(), "onResume() was called!", Toast.LENGTH_LONG).show();
         isAppForeground = true;
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         //For testing purposes.
         //Toast.makeText(getApplicationContext(), "onStop() was called!", Toast.LENGTH_LONG).show();
@@ -120,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     public void permissionsRequest() {
         String[] permissions = {Manifest.permission.READ_CONTACTS, Manifest.permission.SEND_SMS, Manifest.permission.ACCESS_FINE_LOCATION};
 
-        if(!hasPermissions(permissions)) {
+        if (!hasPermissions(permissions)) {
             requestPermissions(permissions, REQUEST_PERMISSIONS);
         } else {
             bluetoothEnableRequest();
@@ -140,8 +143,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if(requestCode == 2) {
-            if(grantResults.length > 0 && grantedCheck == true) {
+        if (requestCode == 2) {
+            if (grantResults.length > 0 && grantedCheck == true) {
                 bluetoothEnableRequest();
             } else {
                 Toast.makeText(getApplicationContext(), "App requires permissions for the Rally features to function. Please allow these permissions.", Toast.LENGTH_LONG).show();
@@ -170,12 +173,11 @@ public class MainActivity extends AppCompatActivity {
     //Defining action for results of asking to enable bluetooth. Always calls startActivities() after finishing.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_ENABLE_BT) {
-            if(resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (resultCode == RESULT_OK) {
                 startBluetooth();
                 bluetoothEnabled = true;
-            }
-            else if (resultCode == RESULT_CANCELED) {
+            } else if (resultCode == RESULT_CANCELED) {
                 bluetoothEnabled = false;
                 Toast.makeText(getApplicationContext(), "Bluetooth is required for app opperation. Please enable Bluetooth.", Toast.LENGTH_LONG).show();
             }
@@ -199,8 +201,8 @@ public class MainActivity extends AppCompatActivity {
     //Begins the app's activities. Should only be called once permissions and bluetooth statuses are checked and handled.
     //Change if you would like the app to have a different landing page after loading.
     private void startActivities() {
-        Intent mapIntent = new Intent(this, occupi.occupi.Map.class);
-        startActivity(mapIntent);
+        Intent intent = new Intent(this, (appState) ? occupi.occupi.Map.class : occupi.occupi.List.class);
+        startActivity(intent);
     }//end startActivities()
 
     //Sets up the thread that runs the BluetoothLE service at a fixed interval of BT_LOOP_TIME_SECONDS seconds.
