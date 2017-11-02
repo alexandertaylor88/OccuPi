@@ -25,7 +25,7 @@
         android:layout_marginBottom="22dp"
         android:id="@+id/radioGroup">
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/loungeButton"
             android:layout_width="127dp"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:checked="false"
             android:text="Lounge" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/mediaButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:elevation="5dp"
             android:text="Media" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/officeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_alignParentStart="true"
             android:text="Office" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/outlookButton"
             android:layout_width="127dp"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
             android:checked="false"
             android:text="Outlook" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/treadmillButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             android:layout_weight="1"
             android:text="Treadmill" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/whiteboardButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

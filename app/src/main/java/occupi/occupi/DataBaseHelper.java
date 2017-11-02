@@ -238,18 +238,17 @@ public class DataBaseHelper {
         return roomList;
     }
 
-    public ArrayList<HashMap<String, String>> filterRoomList(String type) {
+    public ArrayList<HashMap<String, String>> filterRoomList(String queryFilter) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery;
+        String type;
         String id;
         selectQuery = "SELECT  " +
                 Room.KEY_ID + "," +
                 Room.KEY_type + "," +
                 Room.KEY_occupied +
                 " FROM " + Room.TABLE
-                + " WHERE " +
-                Room.KEY_type + "='" + type +
-                "' AND " + Room.KEY_occupied + "=0";
+                + queryFilter;
         ;
         ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -318,19 +317,6 @@ public class DataBaseHelper {
         values.put(AppState.KEY_state, (page.getClass().getSimpleName().equals("Map")) ? 0 : 1);
         db.update(AppState.TABLE, values, AppState.KEY_ID + "= ?", new String[]{"1"});
         db.close();
-    }
-
-    public String tableNames() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
-        String test = "";
-        if (c.moveToFirst()) {
-            while (!c.isAfterLast()) {
-                test += c.getString(0) + " ";
-                c.moveToNext();
-            }
-        }
-        return test;
     }
 
     public String formatListData(int id, String type) {

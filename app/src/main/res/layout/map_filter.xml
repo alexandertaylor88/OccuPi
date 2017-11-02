@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cdcdcd">
+
+    <Spinner
+        android:id="@+id/floorSelection"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/whiteboardButton"
+        android:backgroundTint="#d11f08"
+        android:entries="@array/android_dropdown_floor"
+        android:padding="5dp"
+        android:spinnerMode="dialog" />
+
+    <Button
+        android:id="@+id/sortButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#40bad2"
+        android:text="Sort"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/floorSelection"
+        android:layout_alignLeft="@id/floorSelection"
+        android:layout_marginLeft="30dp"/>
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#40bad2"
+        android:onClick="filterRoomType"
+        android:text="Reset"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/sortButton"
+        android:layout_alignLeft="@id/floorSelection"
+        android:layout_marginLeft="30dp"/>
+
+    <CheckBox
+        android:id="@+id/loungeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lounge" />
+
+    <CheckBox
+        android:id="@+id/mediaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loungeButton"
+        android:text="Media" />
+
+    <CheckBox
+        android:id="@+id/officeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mediaButton"
+        android:text="Office" />
+
+    <CheckBox
+        android:id="@+id/outlookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/officeButton"
+        android:text="Outlook" />
+
+    <CheckBox
+        android:id="@+id/treadmillButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/outlookButton"
+        android:text="Treadmill" />
+
+    <CheckBox
+        android:id="@+id/whiteboardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/treadmillButton"
+        android:text="Whiteboard" />
+</RelativeLayout>

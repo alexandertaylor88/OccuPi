@@ -13,9 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,6 +35,10 @@ public class Map extends AppCompatActivity {
             room16, room17, room18, room19, room20, room21, room22, room23, room24, room25, room26, room27, room28, room29, room30,
             room31, room32, room33, room34, room35, room36, room37, room38, room39;
     TextView floorText;
+
+
+    public Map() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +99,7 @@ public class Map extends AppCompatActivity {
 
         DataBaseHelper db = new DataBaseHelper(Map.this);
         db.saveAppState(this);
-        roomVisibility("empty", db.getRoomMap("2"));
+        roomVisibility(true, true, true, true, true, true, "empty", db.getRoomMap("2"));
         room9.setVisibility(View.INVISIBLE);
         room10.setVisibility(View.INVISIBLE);
 
@@ -109,7 +112,7 @@ public class Map extends AppCompatActivity {
             public void onClick(View view) {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
 
-                final View customView = inflater.inflate(R.layout.map_sort, null);
+                final View customView = inflater.inflate(R.layout.map_filter, null);
                 customView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                 mPopupWindow = new PopupWindow(
                         customView,
@@ -121,20 +124,19 @@ public class Map extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= 21) {
                     mPopupWindow.setElevation(5.0f);
                 }
-                final RadioButton loungeButton = (RadioButton) customView.findViewById(R.id.loungeButton);
-                final RadioButton mediaButton = (RadioButton) customView.findViewById(R.id.mediaButton);
-                final RadioButton officeButton = (RadioButton) customView.findViewById(R.id.officeButton);
-                final RadioButton outlookButton = (RadioButton) customView.findViewById(R.id.outlookButton);
-                final RadioButton treadmillButton = (RadioButton) customView.findViewById(R.id.treadmillButton);
-                final RadioButton whiteBoardButton = (RadioButton) customView.findViewById(R.id.whiteboardButton);
+                final CheckBox loungeButton = (CheckBox) customView.findViewById(R.id.loungeButton);
+                final CheckBox mediaButton = (CheckBox) customView.findViewById(R.id.mediaButton);
+                final CheckBox officeButton = (CheckBox) customView.findViewById(R.id.officeButton);
+                final CheckBox outlookButton = (CheckBox) customView.findViewById(R.id.outlookButton);
+                final CheckBox treadmillButton = (CheckBox) customView.findViewById(R.id.treadmillButton);
+                final CheckBox whiteBoardButton = (CheckBox) customView.findViewById(R.id.whiteboardButton);
                 floor = (Spinner) customView.findViewById(R.id.floorSelection);
-                final RadioGroup rg = (RadioGroup) customView.findViewById(R.id.radioGroup);
                 Button resetButton = (Button) customView.findViewById(R.id.resetButton);
                 resetButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         DataBaseHelper db = new DataBaseHelper(Map.this);
-                        roomVisibility("empty", db.getRoomMap("2"));
+                        roomVisibility(true, true, true, true, true, true, "empty", db.getRoomMap("2"));
                         mPopupWindow.dismiss();
                     }
                 });
@@ -145,20 +147,11 @@ public class Map extends AppCompatActivity {
                         if (floor.getSelectedItem().toString().equals("Select Floor")) {
                             Toast.makeText(Map.this, "Please select a floor", Toast.LENGTH_SHORT).show();
                         } else {
-                            if (loungeButton.isChecked()) {
-                                sortRooms(String.valueOf(loungeButton.getText()), floor.getSelectedItem().toString());
-                            } else if (mediaButton.isChecked()) {
-                                sortRooms(String.valueOf(mediaButton.getText()), floor.getSelectedItem().toString());
-                            } else if (officeButton.isChecked()) {
-                                sortRooms(String.valueOf(officeButton.getText()), floor.getSelectedItem().toString());
-                            } else if (outlookButton.isChecked()) {
-                                sortRooms(String.valueOf(outlookButton.getText()), floor.getSelectedItem().toString());
-                            } else if (treadmillButton.isChecked()) {
-                                sortRooms(String.valueOf(treadmillButton.getText()), floor.getSelectedItem().toString());
-                            } else if (whiteBoardButton.isChecked()) {
-                                sortRooms(String.valueOf(whiteBoardButton.getText()), floor.getSelectedItem().toString());
+                            if (loungeButton.isChecked() || mediaButton.isChecked() || officeButton.isChecked() || outlookButton.isChecked()
+                                    || treadmillButton.isChecked() || whiteBoardButton.isChecked()) {
+                                sortRooms(loungeButton.isChecked(), mediaButton.isChecked(), officeButton.isChecked(), outlookButton.isChecked(), treadmillButton.isChecked(), whiteBoardButton.isChecked(), "type", floor.getSelectedItem().toString());
                             } else {
-                                sortRooms("empty", floor.getSelectedItem().toString());
+                                sortRooms(loungeButton.isChecked(), mediaButton.isChecked(), officeButton.isChecked(), outlookButton.isChecked(), treadmillButton.isChecked(), whiteBoardButton.isChecked(), "empty", floor.getSelectedItem().toString());
                             }
                             mPopupWindow.dismiss();
                         }
@@ -170,205 +163,217 @@ public class Map extends AppCompatActivity {
 
     }
 
-    public void sortRooms(String type, String floor) {
+    public void sortRooms(boolean loungeButton, boolean mediaButton, boolean officeButton, boolean outlookButton, boolean treadmillButton, boolean whiteboardButton, String type, String floor) {
         DataBaseHelper db = new DataBaseHelper(Map.this);
         ArrayList<HashMap<String, String>> roomList = null;
         roomList = db.getRoomMap(floor);
         if (roomList.size() > 0) {
             floorText.setText(floor);
-            roomVisibility(type, roomList);
+            roomVisibility(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, type, roomList);
         } else {
             if (type.equals("empty")) {
                 Toast.makeText(Map.this, "There are no empty rooms on " + floor.toLowerCase(), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(Map.this, "There are no empty " + type.toLowerCase() + " rooms on " + floor.toLowerCase(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Map.this, "There are no empty rooms of this type on " + floor.toLowerCase(), Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    public void roomVisibility(String type, ArrayList<HashMap<String, String>> unoccupiedRooms) {
+    public Boolean roomTypeCheck(boolean loungeButton, boolean mediaButton, boolean officeButton, boolean outlookButton, boolean treadmillButton, boolean whiteboardButton, int num, String type, ArrayList<HashMap<String, String>> unoccupiedRooms) {
+        boolean lou = ((loungeButton && unoccupiedRooms.get(num).get("type").equals("Lounge")));
+        boolean med = ((mediaButton && unoccupiedRooms.get(num).get("type").equals("Media")));
+        boolean off = ((officeButton && unoccupiedRooms.get(num).get("type").equals("Office")));
+        boolean out = ((outlookButton && unoccupiedRooms.get(num).get("type").equals("Outlook")));
+        boolean tre = ((treadmillButton && unoccupiedRooms.get(num).get("type").equals("Treadmill")));
+        boolean whi = ((whiteboardButton && unoccupiedRooms.get(num).get("type").equals("Whiteboard")));
+        if ((type.equals("empty") || (lou || med || off || out || tre || whi)) && (unoccupiedRooms.get(num).get("occupancy").equals("0"))) {
+            return true;
+        } else return false;
+    }
 
-        if ((type.equals("empty") || unoccupiedRooms.get(0).get("type").equals(type)) && (unoccupiedRooms.get(0).get("occupancy").equals("0"))) {
+    public void roomVisibility(boolean loungeButton, boolean mediaButton, boolean officeButton, boolean outlookButton, boolean treadmillButton, boolean whiteboardButton, String type, ArrayList<HashMap<String, String>> unoccupiedRooms) {
+
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 0, type, unoccupiedRooms)) {
             room1.setVisibility(View.VISIBLE);
         } else {
             room1.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(1).get("type").equals(type)) && (unoccupiedRooms.get(1).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 1, type, unoccupiedRooms)) {
             room2.setVisibility(View.VISIBLE);
         } else {
             room2.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(2).get("type").equals(type)) && (unoccupiedRooms.get(2).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 2, type, unoccupiedRooms)) {
             room3.setVisibility(View.VISIBLE);
         } else {
             room3.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(3).get("type").equals(type)) && (unoccupiedRooms.get(3).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 3, type, unoccupiedRooms)) {
             room4.setVisibility(View.VISIBLE);
         } else {
             room4.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(4).get("type").equals(type)) && (unoccupiedRooms.get(4).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 4, type, unoccupiedRooms)) {
             room5.setVisibility(View.VISIBLE);
         } else {
             room5.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(5).get("type").equals(type)) && (unoccupiedRooms.get(5).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 5, type, unoccupiedRooms)) {
             room6.setVisibility(View.VISIBLE);
         } else {
             room6.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(6).get("type").equals(type)) && (unoccupiedRooms.get(6).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 6, type, unoccupiedRooms)) {
             room7.setVisibility(View.VISIBLE);
         } else {
             room7.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(7).get("type").equals(type)) && (unoccupiedRooms.get(7).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 7, type, unoccupiedRooms)) {
             room8.setVisibility(View.VISIBLE);
         } else {
             room8.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(8).get("type").equals(type)) && (unoccupiedRooms.get(8).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 8, type, unoccupiedRooms)) {
             room11.setVisibility(View.VISIBLE);
         } else {
             room11.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(9).get("type").equals(type)) && (unoccupiedRooms.get(9).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 9, type, unoccupiedRooms)) {
             room12.setVisibility(View.VISIBLE);
         } else {
             room12.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(10).get("type").equals(type)) && (unoccupiedRooms.get(10).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 10, type, unoccupiedRooms)) {
             room13.setVisibility(View.VISIBLE);
         } else {
             room13.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(11).get("type").equals(type)) && (unoccupiedRooms.get(11).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 11, type, unoccupiedRooms)) {
             room14.setVisibility(View.VISIBLE);
         } else {
             room14.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(12).get("type").equals(type)) && (unoccupiedRooms.get(12).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 12, type, unoccupiedRooms)) {
             room15.setVisibility(View.VISIBLE);
         } else {
             room15.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(13).get("type").equals(type)) && (unoccupiedRooms.get(13).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 13, type, unoccupiedRooms)) {
             room16.setVisibility(View.VISIBLE);
         } else {
             room16.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(14).get("type").equals(type)) && (unoccupiedRooms.get(14).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 14, type, unoccupiedRooms)) {
             room17.setVisibility(View.VISIBLE);
         } else {
             room17.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(15).get("type").equals(type)) && (unoccupiedRooms.get(15).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 15, type, unoccupiedRooms)) {
             room18.setVisibility(View.VISIBLE);
         } else {
             room18.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(16).get("type").equals(type)) && (unoccupiedRooms.get(16).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 16, type, unoccupiedRooms)) {
             room19.setVisibility(View.VISIBLE);
         } else {
             room19.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(17).get("type").equals(type)) && (unoccupiedRooms.get(17).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 17, type, unoccupiedRooms)) {
             room20.setVisibility(View.VISIBLE);
         } else {
             room20.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(18).get("type").equals(type)) && (unoccupiedRooms.get(18).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 18, type, unoccupiedRooms)) {
             room21.setVisibility(View.VISIBLE);
         } else {
             room21.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(19).get("type").equals(type)) && (unoccupiedRooms.get(19).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 19, type, unoccupiedRooms)) {
             room22.setVisibility(View.VISIBLE);
         } else {
             room22.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(20).get("type").equals(type)) && (unoccupiedRooms.get(20).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 20, type, unoccupiedRooms)) {
             room23.setVisibility(View.VISIBLE);
         } else {
             room23.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(21).get("type").equals(type)) && (unoccupiedRooms.get(21).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 21, type, unoccupiedRooms)) {
             room24.setVisibility(View.VISIBLE);
         } else {
             room24.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(22).get("type").equals(type)) && (unoccupiedRooms.get(22).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 22, type, unoccupiedRooms)) {
             room25.setVisibility(View.VISIBLE);
         } else {
             room25.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(23).get("type").equals(type)) && (unoccupiedRooms.get(23).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 23, type, unoccupiedRooms)) {
             room26.setVisibility(View.VISIBLE);
         } else {
             room26.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(24).get("type").equals(type)) && (unoccupiedRooms.get(24).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 24, type, unoccupiedRooms)) {
             room27.setVisibility(View.VISIBLE);
         } else {
             room27.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(25).get("type").equals(type)) && (unoccupiedRooms.get(25).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 25, type, unoccupiedRooms)) {
             room28.setVisibility(View.VISIBLE);
         } else {
             room28.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(26).get("type").equals(type)) && (unoccupiedRooms.get(26).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 26, type, unoccupiedRooms)) {
             room29.setVisibility(View.VISIBLE);
         } else {
             room29.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(27).get("type").equals(type)) && (unoccupiedRooms.get(27).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 27, type, unoccupiedRooms)) {
             room30.setVisibility(View.VISIBLE);
         } else {
             room30.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(28).get("type").equals(type)) && (unoccupiedRooms.get(28).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 28, type, unoccupiedRooms)) {
             room31.setVisibility(View.VISIBLE);
         } else {
             room31.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(29).get("type").equals(type)) && (unoccupiedRooms.get(29).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 29, type, unoccupiedRooms)) {
             room32.setVisibility(View.VISIBLE);
         } else {
             room32.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(30).get("type").equals(type)) && (unoccupiedRooms.get(30).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 30, type, unoccupiedRooms)) {
             room33.setVisibility(View.VISIBLE);
         } else {
             room33.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(31).get("type").equals(type)) && (unoccupiedRooms.get(31).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 31, type, unoccupiedRooms)) {
             room34.setVisibility(View.VISIBLE);
         } else {
             room34.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(32).get("type").equals(type)) && (unoccupiedRooms.get(32).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 32, type, unoccupiedRooms)) {
             room35.setVisibility(View.VISIBLE);
         } else {
             room35.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(33).get("type").equals(type)) && (unoccupiedRooms.get(33).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 33, type, unoccupiedRooms)) {
             room36.setVisibility(View.VISIBLE);
         } else {
             room36.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(34).get("type").equals(type)) && (unoccupiedRooms.get(34).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 34, type, unoccupiedRooms)) {
             room37.setVisibility(View.VISIBLE);
         } else {
             room37.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(35).get("type").equals(type)) && (unoccupiedRooms.get(35).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 35, type, unoccupiedRooms)) {
             room38.setVisibility(View.VISIBLE);
         } else {
             room38.setVisibility(View.INVISIBLE);
         }
-        if ((type.equals("empty") || unoccupiedRooms.get(36).get("type").equals(type)) && (unoccupiedRooms.get(36).get("occupancy").equals("0"))) {
+        if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 36, type, unoccupiedRooms)) {
             room39.setVisibility(View.VISIBLE);
         } else {
             room39.setVisibility(View.INVISIBLE);

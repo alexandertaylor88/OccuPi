@@ -85,7 +85,9 @@
             android:layout_above="@+id/room_menu"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="Send" />
+            android:text="Send"
+            android:backgroundTint="#40bad2"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/dateTime"

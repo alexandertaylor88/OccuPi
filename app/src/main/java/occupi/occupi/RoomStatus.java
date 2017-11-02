@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class RoomStatus extends AppCompatActivity {
 
     TextView textType;
     TextView textID;
+    ImageView roomType;
     private int _Room_Id = 0;
 
     @Override
@@ -21,6 +23,7 @@ public class RoomStatus extends AppCompatActivity {
 
         textID = (TextView) findViewById(R.id.text_num);
         textType = (TextView) findViewById(R.id.text_type);
+        roomType = (ImageView) findViewById(R.id.roomType);
 
         _Room_Id = 0;
         Intent intent = getIntent();
@@ -31,6 +34,29 @@ public class RoomStatus extends AppCompatActivity {
 
         textType.setText(room.type);
         textID.setText(roomNameFormatting(_Room_Id));
+
+        switch (textType.getText().toString()) {
+            case "Lounge":
+                roomType.setImageResource(R.drawable.lounge);
+                return;
+            case "Media":
+                roomType.setImageResource(R.drawable.media);
+                return;
+            case "Office":
+                roomType.setImageResource(R.drawable.office);
+                return;
+            case "Outlook":
+                roomType.setImageResource(R.drawable.outlook);
+                return;
+            case "Treadmill":
+                roomType.setImageResource(R.drawable.treadmill);
+                return;
+            case "Whiteboard":
+                roomType.setImageResource(R.drawable.whiteboard);
+                return;
+        }
+        roomType.setImageResource(R.drawable.lounge);
+
     }
 
     @Override
@@ -86,10 +112,6 @@ public class RoomStatus extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         MainActivity.isAppForeground = false;
-    }
-
-    @Override
-    public void onBackPressed() {
     }
 
 }
