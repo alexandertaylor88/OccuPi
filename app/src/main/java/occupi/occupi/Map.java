@@ -3,6 +3,8 @@ package occupi.occupi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -393,6 +395,8 @@ public class Map extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.map).setEnabled(false);
+        menu.findItem(R.id.map).getIcon().setColorFilter(Color.LTGRAY, PorterDuff.Mode.DST_OVER);
         return true;
     }
 

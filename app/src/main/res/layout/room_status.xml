@@ -48,7 +48,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/picture1"
+        app:srcCompat="@drawable/office"
         android:id="@+id/roomType"
         android:layout_marginTop="62dp"
         android:layout_below="@+id/view"

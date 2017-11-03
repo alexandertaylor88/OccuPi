@@ -1,6 +1,8 @@
 package occupi.occupi;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -62,6 +64,8 @@ public class RoomStatus extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.list).setEnabled(false);
+        menu.findItem(R.id.list).getIcon().setColorFilter(Color.LTGRAY, PorterDuff.Mode.DST_OVER);
         return true;
     }
 
