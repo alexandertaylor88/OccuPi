@@ -71,22 +71,22 @@ public class List extends AppCompatActivity {
                 ArrayList<HashMap<String, String>> roomList = null;
                 if(loungeButton.isChecked() || mediaButton.isChecked() || officeButton.isChecked() || outlookButton.isChecked() || treadmillButton.isChecked() || whiteBoardButton.isChecked()) {
                     if (loungeButton.isChecked()) {
-                        queryString += (numChecked++ == 0) ? " WHERE " + Room.KEY_type + "= 'Lounge'" : " OR " + Room.KEY_type + "= 'Lounge'";
+                        queryString += (numChecked++ == 0) ? " AND (" + Room.KEY_type + "= 'Lounge'" : " OR " + Room.KEY_type + "= 'Lounge'";
                     }
                     if (mediaButton.isChecked()) {
-                        queryString += (numChecked++ == 0) ? " WHERE " + Room.KEY_type + "= 'Media'" : " OR " + Room.KEY_type + "= 'Media'";
+                        queryString += (numChecked++ == 0) ? " AND (" + Room.KEY_type + "= 'Media'" : " OR " + Room.KEY_type + "= 'Media'";
                     }
                     if (officeButton.isChecked()) {
-                        queryString += (numChecked++ == 0) ? " WHERE " + Room.KEY_type + "= 'Office'" : " OR " + Room.KEY_type + "= 'Office'";
+                        queryString += (numChecked++ == 0) ? " AND (" + Room.KEY_type + "= 'Office'" : " OR " + Room.KEY_type + "= 'Office'";
                     }
                     if (outlookButton.isChecked()) {
-                        queryString += (numChecked++ == 0) ? " WHERE " + Room.KEY_type + "= 'Outook'" : " OR " + Room.KEY_type + "= 'Outlook'";
+                        queryString += (numChecked++ == 0) ? " AND (" + Room.KEY_type + "= 'Outook'" : " OR " + Room.KEY_type + "= 'Outlook'";
                     }
                     if (treadmillButton.isChecked()) {
-                        queryString += (numChecked++ == 0) ? " WHERE " + Room.KEY_type + "= 'Treadmill'" : " OR " + Room.KEY_type + "= 'Treadmill'";
+                        queryString += (numChecked++ == 0) ? " AND (" + Room.KEY_type + "= 'Treadmill'" : " OR " + Room.KEY_type + "= 'Treadmill'";
                     }
                     if (whiteBoardButton.isChecked()) {
-                        queryString += (numChecked++ == 0) ? " WHERE " + Room.KEY_type + "= 'Whiteboard'" : " OR " + Room.KEY_type + "= 'Whiteboard'";
+                        queryString += (numChecked++ == 0) ? " AND (" + Room.KEY_type + "= 'Whiteboard'" : " OR " + Room.KEY_type + "= 'Whiteboard'";
                     }
                     try {
                         filterList(roomList, list, queryString);

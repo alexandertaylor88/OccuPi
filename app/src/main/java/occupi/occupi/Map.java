@@ -32,10 +32,9 @@ public class Map extends AppCompatActivity {
     PopupWindow mPopupWindow;
     Spinner floor;
     View room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15,
-            room16, room17, room18, room19, room20, room21, room22, room23, room24, room25, room26, room27, room28, room29, room30,
-            room31, room32, room33, room34, room35, room36, room37, room38, room39;
+            room16, room17, room18, room19, room20, room21, room22, room23, room24, room25, room26, room27, room28, room29,
+            room30, room31, room32, room33, room34, room35, room36, room37, room38, room39;
     TextView floorText;
-
 
     public Map() {
     }
@@ -377,6 +376,17 @@ public class Map extends AppCompatActivity {
             room39.setVisibility(View.VISIBLE);
         } else {
             room39.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void goRoomStatus(View room) {
+        if(room.getVisibility() == View.VISIBLE){
+            String roomID = "";
+            roomID += Integer.parseInt(floorText.getText().toString().replaceAll("[\\D]", ""));
+            roomID += getResources().getResourceName(room.getId()).replaceAll("[\\D]", "");
+            Intent objIndent = new Intent(Map.this, RoomStatus.class);
+            objIndent.putExtra("room_Id", Integer.parseInt(roomID));
+            startActivity(objIndent);
         }
     }
 

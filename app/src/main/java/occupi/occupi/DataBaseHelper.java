@@ -107,6 +107,154 @@ public class DataBaseHelper {
                 "VALUES('238','Outlook','0')");
         db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
                 "VALUES('239','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('301','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('302','Treadmill','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('303','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('304','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('305','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('306','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('307','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('308','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('311','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('312','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('313','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('314','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('315','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('316','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('317','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('318','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('319','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('320','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('321','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('322','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('323','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('324','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('325','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('326','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('327','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('328','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('329','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('330','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('331','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('332','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('333','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('334','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('335','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('336','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('337','Treadmill','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('338','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('339','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('401','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('402','Treadmill','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('403','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('404','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('405','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('406','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('407','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('408','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('411','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('412','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('413','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('414','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('415','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('416','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('417','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('418','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('419','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('420','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('421','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('422','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('423','Whiteboard','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('424','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('425','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('426','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('427','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('428','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('429','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('430','Office','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('431','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('432','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('433','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('434','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('435','Lounge','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('436','Media','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('437','Treadmill','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('438','Outlook','0')");
+        db.execSQL("INSERT INTO " + Room.TABLE + " (" + Room.KEY_ID + ", " + Room.KEY_type + ", " + Room.KEY_occupied + ") " +
+                "VALUES('439','Outlook','0')");
         db.close();
     }
 
@@ -248,7 +396,8 @@ public class DataBaseHelper {
                 Room.KEY_type + "," +
                 Room.KEY_occupied +
                 " FROM " + Room.TABLE
-                + queryFilter;
+                + " WHERE " + Room.KEY_occupied + "=0"
+                + queryFilter + ")";
         ;
         ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
         Cursor cursor = db.rawQuery(selectQuery, null);

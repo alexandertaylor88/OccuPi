@@ -14,8 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="220dp" />
+        android:layout_marginBottom="220dp"
+        android:layout_below="@+id/unoccupiedLabel"/>
 
     <RadioGroup
         android:layout_width="wrap_content"
@@ -104,5 +104,16 @@
         android:layout_alignBaseline="@+id/sortButton"
         android:layout_alignBottom="@+id/sortButton"
         android:layout_toEndOf="@+id/sortButton" />
+
+    <TextView
+        android:id="@+id/unoccupiedLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Unoccupied Rooms:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingLeft="6dip"/>
 
 </RelativeLayout>

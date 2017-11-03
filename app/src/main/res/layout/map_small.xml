@@ -7,14 +7,12 @@
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/mapFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/baseMap"
             android:layout_width="350px"
             android:layout_height="700px"
@@ -29,7 +27,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                app:srcCompat="@drawable/map_outline2"></ImageView>
+                app:srcCompat="@drawable/map_outline"></ImageView>
 
             <View
                 android:id="@+id/room28"
@@ -38,7 +36,8 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="6px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room27"
@@ -48,7 +47,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="70px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room26"
@@ -58,7 +58,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="105px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room25"
@@ -68,7 +69,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="140px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room24"
@@ -78,7 +80,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="175px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room23"
@@ -88,7 +91,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="210px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room22"
@@ -98,7 +102,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="245px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room21"
@@ -108,7 +113,8 @@
                 android:layout_marginLeft="0px"
                 android:layout_marginTop="281px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room18"
@@ -118,7 +124,8 @@
                 android:layout_marginLeft="0px"
                 android:layout_marginTop="385px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room17"
@@ -128,7 +135,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="420px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room16"
@@ -138,7 +146,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="455px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room15"
@@ -148,7 +157,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="490px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room14"
@@ -158,7 +168,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="525px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room13"
@@ -168,7 +179,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="560px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room12"
@@ -178,7 +190,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="595px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room11"
@@ -188,7 +201,8 @@
                 android:layout_marginLeft="6px"
                 android:layout_marginTop="630px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room31"
@@ -197,7 +211,8 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="301px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room32"
@@ -207,7 +222,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="70px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room33"
@@ -217,7 +233,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="105px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room34"
@@ -227,7 +244,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="140px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room35"
@@ -237,7 +255,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="175px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room36"
@@ -247,7 +266,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="210px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room37"
@@ -257,7 +277,8 @@
                 android:layout_marginLeft="307px"
                 android:layout_marginTop="245px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
 
             <View
@@ -268,7 +289,8 @@
                 android:layout_marginLeft="307px"
                 android:layout_marginTop="420px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room03"
@@ -278,7 +300,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="455px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room04"
@@ -288,7 +311,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="490px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room05"
@@ -298,7 +322,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="525px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room06"
@@ -308,7 +333,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="560px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room07"
@@ -318,7 +344,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="595px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room08"
@@ -328,7 +355,8 @@
                 android:layout_marginLeft="301px"
                 android:layout_marginTop="630px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room01"
@@ -338,7 +366,8 @@
                 android:layout_marginLeft="219px"
                 android:layout_marginTop="424px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room38"
@@ -348,7 +377,8 @@
                 android:layout_marginLeft="219px"
                 android:layout_marginTop="245px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room30"
@@ -358,7 +388,8 @@
                 android:layout_marginLeft="94px"
                 android:layout_marginTop="140px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room29"
@@ -368,7 +399,8 @@
                 android:layout_marginLeft="94px"
                 android:layout_marginTop="175px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room20"
@@ -378,7 +410,8 @@
                 android:layout_marginLeft="94px"
                 android:layout_marginTop="490px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room19"
@@ -388,7 +421,8 @@
                 android:layout_marginLeft="94px"
                 android:layout_marginTop="525px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room39"
@@ -398,7 +432,8 @@
                 android:layout_marginLeft="151px"
                 android:layout_marginTop="160px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room09"
@@ -408,7 +443,8 @@
                 android:layout_marginLeft="186px"
                 android:layout_marginTop="560px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <View
                 android:id="@+id/room10"
@@ -418,7 +454,8 @@
                 android:layout_marginLeft="151px"
                 android:layout_marginTop="560px"
                 android:alpha=".40"
-                android:background="#03b600"></View>
+                android:background="#03b600"
+                android:onClick="goRoomStatus"></View>
 
             <TextView
                 android:id="@+id/floorText"

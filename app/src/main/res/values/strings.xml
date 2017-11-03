@@ -14,7 +14,6 @@
 
     <string-array name="android_dropdown_floor">
         <item>Select Floor</item>
-        <item>Floor 1</item>
         <item>Floor 2</item>
         <item>Floor 3</item>
         <item>Floor 4</item>
@@ -59,36 +58,6 @@
         <item>Room 37</item>
         <item>Room 38</item>
         <item>Room 39</item>
-    </string-array>
-
-    <string-array name="android_dropdown_hour">
-        <item>6 AM</item>
-        <item>7 AM</item>
-        <item>8 AM</item>
-        <item>9 AM</item>
-        <item>10 AM</item>
-        <item>11 AM</item>
-        <item>12 AM</item>
-        <item>1 PM</item>
-        <item>2 PM</item>
-        <item>3 PM</item>
-        <item>4 PM</item>
-        <item>5 PM</item>
-        <item>6 PM</item>
-    </string-array>
-
-    <string-array name="android_dropdown_roomSize">
-        <item>Select Size</item>
-        <item>Any Size</item>
-        <item>Small (0-4)</item>
-        <item>Medium (5-8)</item>
-        <item>Large (9+)</item>
-    </string-array>
-
-    <string-array name="roomSize">
-        <item>Small(0-4)</item>
-        <item>Medium(4-8)</item>
-        <item>Large(9+)</item>
     </string-array>
 
 </resources>
