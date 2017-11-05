@@ -15,6 +15,8 @@ public class DataBaseHelper {
         dbHelper = new DataBaseConn(context);
     }
 
+    //Initial creation of the database for first time users or with new updates. This contains information
+    //on all of the rooms.
     public void createDatabase() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -258,31 +260,7 @@ public class DataBaseHelper {
         db.close();
     }
 
-    public int insert(Room room) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(Room.KEY_occupied, room.occupied);
-        values.put(Room.KEY_type, room.type);
-        long room_Id = db.insert(Room.TABLE, null, values);
-        db.close();
-        return (int) room_Id;
-    }
-
-    public void delete(int room_Id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(Room.TABLE, Room.KEY_ID + "= ?", new String[]{String.valueOf(room_Id)});
-        db.close();
-    }
-
-    public void updateRoom(Room room) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(Room.KEY_occupied, room.occupied);
-        values.put(Room.KEY_type, room.type);
-        db.update(Room.TABLE, values, Room.KEY_ID + "= ?", new String[]{String.valueOf(room.room_ID)});
-        db.close();
-    }
-
+    //Called by the BluetoothLE class whenever packets of room occupancies are scanned
     public void updateOccupancy(int floor, byte[] roomArray) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -298,30 +276,7 @@ public class DataBaseHelper {
         db.close();
     }
 
-    public ArrayList<HashMap<String, String>> getRoomList() {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selectQuery = "SELECT  " +
-                Room.KEY_ID + "," +
-                Room.KEY_type + "," +
-                Room.KEY_occupied +
-                " FROM " + Room.TABLE;
-        ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                HashMap<String, String> room = new HashMap<String, String>();
-                room.put("id", cursor.getString(cursor.getColumnIndex(Room.KEY_ID)));
-                room.put("type", cursor.getString(cursor.getColumnIndex(Room.KEY_type)));
-                roomList.add(room);
-
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-        return roomList;
-
-    }
-
+    //Standardized query of the full list of unoccupied rooms from all of the floors
     public ArrayList<HashMap<String, String>> getEmptyRoomList() {
         String id;
         String type;
@@ -351,6 +306,7 @@ public class DataBaseHelper {
         return roomList;
     }
 
+    //Specific query for the map page that queries the room occupancies of a specific floor
     public ArrayList<HashMap<String, String>> getRoomMap(String flr) {
         int floor = Integer.parseInt(flr.replaceAll("\\D+","")) * 100;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -386,18 +342,20 @@ public class DataBaseHelper {
         return roomList;
     }
 
+    //Specific query for the list page that queries the room occupancies of a specific type
     public ArrayList<HashMap<String, String>> filterRoomList(String queryFilter) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery;
         String type;
         String id;
+        queryFilter = ( queryFilter.equals("")) ? "" : queryFilter + ")";
         selectQuery = "SELECT  " +
                 Room.KEY_ID + "," +
                 Room.KEY_type + "," +
                 Room.KEY_occupied +
                 " FROM " + Room.TABLE
                 + " WHERE " + Room.KEY_occupied + "=0"
-                + queryFilter + ")";
+                + queryFilter;
         ;
         ArrayList<HashMap<String, String>> roomList = new ArrayList<HashMap<String, String>>();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -417,6 +375,7 @@ public class DataBaseHelper {
         return roomList;
     }
 
+    //Query that returns a Room object based on that room's id
     public Room getRoomById(int Id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT  " +
@@ -440,6 +399,7 @@ public class DataBaseHelper {
         return room;
     }
 
+    //Query to determine the last page (map or list) accessed by the user
     public int getAppState() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selectQuery = "SELECT  " +
@@ -460,6 +420,8 @@ public class DataBaseHelper {
         return appState.state;
     }
 
+    //If the user accesses the map or list page, the database is updated accordingly so as to provide
+    //an instant redirect to that page when the app is opened again.
     public void saveAppState(Context page) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -468,6 +430,7 @@ public class DataBaseHelper {
         db.close();
     }
 
+    //Formats data for the list page to display the floor number, room number and room type all on one line
     public String formatListData(int id, String type) {
         int floor = id / 100;
         int room = id - (100 * floor);

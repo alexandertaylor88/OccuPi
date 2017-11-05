@@ -41,9 +41,6 @@ public class BluetoothLE extends Service {
 
         scanner = adapter.getBluetoothLeScanner();
 
-        //Toast for testing purposes.
-        //Toast.makeText(getApplicationContext(), "Bluetooth onCreate() was called!", Toast.LENGTH_LONG).show();
-
         callback = new ScanCallback() {
             @Override
             public void onScanResult(int callbackType, ScanResult result) {
@@ -97,9 +94,6 @@ public class BluetoothLE extends Service {
             }
         }, 10000);
 
-        //Toast for testing purposes.
-        //Toast.makeText(getApplicationContext(), "Bluetooth onStartCommand() was called!", Toast.LENGTH_LONG).show();
-
         return START_STICKY;
     }
 
@@ -112,7 +106,5 @@ public class BluetoothLE extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //Toast for testing purposes.
-        //Toast.makeText(getApplicationContext(), "The bluetooth service was destroyed!", Toast.LENGTH_LONG).show();
     }
 }

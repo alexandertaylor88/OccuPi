@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#40bad2"
-        android:text="Sort"
+        android:text="Search"
         android:textColor="@android:color/white"
         android:layout_below="@+id/floorSelection"
         android:layout_alignLeft="@id/floorSelection"

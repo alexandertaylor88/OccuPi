@@ -90,7 +90,7 @@
         android:layout_toEndOf="@+id/radioGroup"
         android:backgroundTint="#40bad2"
         android:onClick="filterRoomType"
-        android:text="Sort"
+        android:text="Filter"
         android:textColor="@android:color/white" />
 
     <Button

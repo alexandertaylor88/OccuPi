@@ -2,8 +2,6 @@ package occupi.occupi;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.DataSetObservable;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +29,8 @@ public class ContactsListAdapter extends BaseAdapter {
         this.filterContactName = "";
     }
 
+    //Search functionality to filter list based on user input
     public void filter(String filterContactName) {
-
 
         filteredContactsList.contactArrayList.clear();
         if (filterContactName.isEmpty() || filterContactName.length() < 1) {
@@ -47,20 +45,20 @@ public class ContactsListAdapter extends BaseAdapter {
             }
         }
         notifyDataSetChanged();
-
     }
 
     public void addContacts(ArrayList<Contact> contacts) {
         this.contactsList.contactArrayList.addAll(contacts);
         this.filter(this.filterContactName);
-
     }
 
+    //Return total number of contacts in the list
     @Override
     public int getCount() {
         return filteredContactsList.getCount();
     }
 
+    //Return contact based on their position in the list
     @Override
     public Contact getItem(int position) {
         return filteredContactsList.contactArrayList.get(position);
@@ -71,6 +69,7 @@ public class ContactsListAdapter extends BaseAdapter {
         return Long.parseLong(this.getItem(position).id);
     }
 
+    //Determine which contacts have been selected from the list
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -112,12 +111,10 @@ public class ContactsListAdapter extends BaseAdapter {
     public boolean alreadySelected(Contact contact) {
         if (this.selectedContactsList.getContact(Integer.parseInt(contact.id)) != null)
             return true;
-
         return false;
     }
 
     public static class ViewHolder {
-
         CheckBox chkContact;
     }
 }

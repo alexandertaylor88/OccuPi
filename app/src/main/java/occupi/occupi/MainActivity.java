@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     }//end hasPermissions()
 
     //Begins the app's activities. Should only be called once permissions and bluetooth statuses are checked and handled.
-    //Change if you would like the app to have a different landing page after loading.
+    //The app will load either the map or the list depending on which of these was used last.
     private void startActivities() {
         Intent intent = new Intent(this, (appState) ? occupi.occupi.Map.class : occupi.occupi.List.class);
         startActivity(intent);

@@ -62,6 +62,7 @@ public class Rally extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle roomData = intent.getExtras();
 
+        //Populated the room and floor spinners with the appropriate data from the RoomStatus class
         if (roomData != null) {
             int roomNum = Integer.valueOf((String) roomData.get("id"));
             int floorNum = roomNum / 100;
@@ -69,6 +70,7 @@ public class Rally extends AppCompatActivity {
             floor.setSelection(getIndex(floor, Integer.toString(floorNum), "Floor"));
             room.setSelection(getIndex(room, Integer.toString(roomNum), "Room"));
         }
+
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
 
@@ -110,6 +112,7 @@ public class Rally extends AppCompatActivity {
         contactsDisplay = (EditText) findViewById(R.id.editTextPhoneNo);
         pickContacts = (Button) findViewById(R.id.btn_pick_contacts);
 
+        //Link to pull populate team list from phone contacts
         pickContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +121,7 @@ public class Rally extends AppCompatActivity {
             }
         });
 
+        //Popup window to specify the time and date of the upcoming meeting
         mContext = getApplicationContext();
         mActivity = Rally.this;
         mRelativeLayout = (RelativeLayout) findViewById(R.id.rally);
@@ -165,6 +169,7 @@ public class Rally extends AppCompatActivity {
 
     }
 
+    //After pulling contacts from contact list, the "Contacts" bar display their phone numbers
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -212,6 +217,7 @@ public class Rally extends AppCompatActivity {
         return (super.onOptionsItemSelected(item));
     }
 
+    //Format the time selected from the popup window to be in a 12 hour format
     public String formatTime(TimePicker time) {
         int intHour = time.getCurrentHour();
         int intMinute = time.getCurrentMinute();
@@ -232,10 +238,12 @@ public class Rally extends AppCompatActivity {
         }
     }
 
+    //Format the date selected from the popup window
     public String formatDate(DatePicker date) {
         return date.getMonth() + "/" + date.getDayOfMonth() + "/" + date.getYear();
     }
 
+    //Get the index of a room from the database
     public int getIndex(Spinner s, String value, String type) {
         for (int i = 0; i < s.getCount(); i++) {
             if (s.getItemAtPosition(i).equals(type + " " + value)) {

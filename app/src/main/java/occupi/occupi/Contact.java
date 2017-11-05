@@ -6,20 +6,18 @@ import android.os.Parcelable;
 
 public class Contact implements Parcelable {
 
-    public String id, name, phone, label;
+    public String id, name, phone;
 
-    Contact(String id, String name, String phone, String label) {
+    Contact(String id, String name, String phone) {
         this.id = id;
         this.name = name;
         this.phone = phone;
-        this.label = label;
     }
 
     protected Contact(Parcel in) {
         id = in.readString();
         name = in.readString();
         phone = in.readString();
-        label = in.readString();
     }
 
     public static final Creator<Contact> CREATOR = new Creator<Contact>() {
@@ -36,13 +34,11 @@ public class Contact implements Parcelable {
 
     @Override
     public String toString() {
-        return name + " | " + label + " : " + phone;
+        return name + " : " + phone;
     }
-
     public String number() {
         return phone;
     }
-
     public String name() {
         return name;
     }
@@ -57,6 +53,5 @@ public class Contact implements Parcelable {
         dest.writeString(id);
         dest.writeString(name);
         dest.writeString(phone);
-        dest.writeString(label);
     }
 }

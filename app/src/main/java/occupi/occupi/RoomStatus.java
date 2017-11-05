@@ -34,9 +34,11 @@ public class RoomStatus extends AppCompatActivity {
         Room room = new Room();
         room = db.getRoomById(_Room_Id);
 
+        //Display the floor and room numbers along with the room type
         textType.setText(room.type);
         textID.setText(roomNameFormatting(_Room_Id));
 
+        //Display the corresponding room image based on the room type
         switch (textType.getText().toString()) {
             case "Lounge":
                 roomType.setImageResource(R.drawable.lounge);
@@ -89,6 +91,7 @@ public class RoomStatus extends AppCompatActivity {
         return (super.onOptionsItemSelected(item));
     }
 
+    //Format the floor number and room number based on the roomID
     private String roomNameFormatting(int roomNum) {
         int floor = roomNum / 100;
         return "Floor " + floor + " Room " + (roomNum - (100 * floor));

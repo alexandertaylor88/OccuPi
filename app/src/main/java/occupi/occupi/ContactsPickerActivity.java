@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.support.annotation.BoolRes;
 
 public class ContactsPickerActivity extends AppCompatActivity {
 
@@ -68,26 +67,23 @@ public class ContactsPickerActivity extends AppCompatActivity {
 
         loadContacts("");
 
-
         txtFilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
+            //As the user enters a search, begin filtering the phone contacts
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 contactsListAdapter.filter(s.toString());
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
-
             }
         });
 
+        //Return the list of contacts that have been selected by the user
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,19 +101,17 @@ public class ContactsPickerActivity extends AppCompatActivity {
         });
     }
 
+    //Pulling contacts from phone on a separate thread
     private void loadContacts(String filter) {
-
         if (contactsLoader != null && contactsLoader.getStatus() != AsyncTask.Status.FINISHED) {
             try {
                 contactsLoader.cancel(true);
             } catch (Exception e) {
-
             }
         }
         if (filter == null) filter = "";
 
         try {
-            //Running AsyncLoader with adapter and  filter
             contactsLoader = new ContactsLoader(this, contactsListAdapter);
             contactsLoader.txtProgress = txtLoadInfo;
             contactsLoader.execute(filter);
