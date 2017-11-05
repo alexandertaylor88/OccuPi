@@ -396,7 +396,7 @@ public class Map extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.findItem(R.id.map).setEnabled(false);
-        menu.findItem(R.id.map).getIcon().setColorFilter(Color.LTGRAY, PorterDuff.Mode.DST_OVER);
+        menu.findItem(R.id.map).setIcon(R.drawable.map_focused);
         return true;
     }
 

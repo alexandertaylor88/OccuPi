@@ -123,7 +123,7 @@ public class List extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.findItem(R.id.list).setEnabled(false);
-        menu.findItem(R.id.list).getIcon().setColorFilter(Color.LTGRAY, PorterDuff.Mode.DST_OVER);
+        menu.findItem(R.id.list).setIcon(R.drawable.list_focused);
         return true;
     }
     @Override

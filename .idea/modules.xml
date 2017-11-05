@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OccuPi.iml" filepath="$PROJECT_DIR$/OccuPi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OccuPi-master.iml" filepath="$PROJECT_DIR$/OccuPi-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

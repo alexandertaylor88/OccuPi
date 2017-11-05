@@ -64,8 +64,6 @@ public class RoomStatus extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.findItem(R.id.list).setEnabled(false);
-        menu.findItem(R.id.list).getIcon().setColorFilter(Color.LTGRAY, PorterDuff.Mode.DST_OVER);
         return true;
     }
 

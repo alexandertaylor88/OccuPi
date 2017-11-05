@@ -186,7 +186,7 @@ public class Rally extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.findItem(R.id.rally).setEnabled(false);
-        menu.findItem(R.id.rally).getIcon().setColorFilter(Color.LTGRAY, PorterDuff.Mode.DST_OVER);
+        menu.findItem(R.id.rally).setIcon(R.drawable.rally_focused);
         return true;
     }
 

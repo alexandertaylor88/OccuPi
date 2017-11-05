@@ -4,17 +4,17 @@
     tools:context=".List">
     <item
         android:id="@+id/map"
-        android:icon="@android:drawable/ic_dialog_map"
+        android:icon="@drawable/map_unfocused"
         android:title="Map"
         app:showAsAction="always"></item>
     <item
         android:id="@+id/list"
-        android:icon="@drawable/list_icon"
+        android:icon="@drawable/list_unfocused"
         android:title="List"
         app:showAsAction="always"></item>
     <item
         android:id="@+id/rally"
-        android:icon="@android:drawable/stat_notify_chat"
+        android:icon="@drawable/rally_unfocused"
         android:title="Rally"
         app:showAsAction="always"></item>
 
