@@ -76,15 +76,15 @@ public class Rally extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String sms = "";
+                String sms, addInfo = "";
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
+                    if (!Objects.equals(textSMS.getText().toString(), "")) {
+                        addInfo = "\n" + textSMS.getText().toString();
+                    }
                     if (!Objects.equals(textPhoneNo.getText().toString(), "") && !Objects.equals(mButton.getText().toString(), "Select Date and Time") && !Objects.equals(floor.getSelectedItem().toString(), "Select Floor") && !Objects.equals(room.getSelectedItem().toString(), "Select Room")) {
                         String phoneNo = textPhoneNo.getText().toString();
-                        sms = "Enterprise Meeting:" + "\n" + formatDate(date) + "\n" + formatTime(time) + "\n" + floor.getSelectedItem().toString() + "\n" + room.getSelectedItem().toString();
-                        if (!Objects.equals(textSMS.getText().toString(), "")) {
-                            sms += "\n" + textSMS.getText().toString();
-                        }
+                        sms = "Enterprise Meeting:" + "\n" + formatDate(date) + "\n" + formatTime(time) + "\n" + floor.getSelectedItem().toString() + "\n" + room.getSelectedItem().toString() + addInfo + "\n\nSent with OccuPi\nMsg & data rates may apply";
                         try {
                             SmsManager smsManager = SmsManager.getDefault();
                             List<String> numbers = Arrays.asList(phoneNo.split("\\s*,\\s*"));
