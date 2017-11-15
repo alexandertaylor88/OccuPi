@@ -9,13 +9,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="occupi.occupi.List">
 
+    <View
+        android:id="@+id/dividerOne"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/unoccupiedLabel"/>
+
     <ListView
         android:id="@+id/roomList"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="220dp"
-        android:layout_below="@+id/unoccupiedLabel"/>
+        android:layout_below="@+id/dividerOne"/>
+
+    <View
+        android:id="@+id/dividerTwo"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_above="@+id/radioGroup"/>
 
     <RadioGroup
         android:layout_width="wrap_content"
