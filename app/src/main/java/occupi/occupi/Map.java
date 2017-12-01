@@ -1,3 +1,29 @@
+/*
+ * Copyright (c) 2017, Team OccuPi - Erik Brown, Tony Klingele, Alexander Taylor, Ethan Wright
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ *   list of conditions and the following disclaimer.
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package occupi.occupi;
 
 import android.app.Activity;
@@ -46,6 +72,7 @@ public class Map extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
 
+        //Determines the user's cell phone screen size and opens the appropriate xml file
         if (height < 1000) {
             setContentView(R.layout.map_small);
         } else if (height >= 1000 && height < 2000) {
@@ -54,6 +81,7 @@ public class Map extends AppCompatActivity {
             setContentView(R.layout.map_large);
         }
 
+        //List of all rooms on any floor
         floorText = (TextView) findViewById(R.id.floorText);
         room1 = (View) findViewById(R.id.room01);
         room2 = (View) findViewById(R.id.room02);
@@ -95,6 +123,8 @@ public class Map extends AppCompatActivity {
         room38 = (View) findViewById(R.id.room38);
         room39 = (View) findViewById(R.id.room39);
 
+        //Sets a flag for the app to open on the Map page. This page opens on the second floor, and
+        //the database is queried for this information
         DataBaseHelper db = new DataBaseHelper(Map.this);
         db.saveAppState(this);
         roomVisibility(true, true, true, true, true, true, "empty", db.getRoomMap("2"));
@@ -161,6 +191,7 @@ public class Map extends AppCompatActivity {
 
     }
 
+    //Calls the appropriate query on database and alters the visibility on the rooms
     public void sortRooms(boolean loungeButton, boolean mediaButton, boolean officeButton, boolean outlookButton, boolean treadmillButton, boolean whiteboardButton, String type, String floor) {
         DataBaseHelper db = new DataBaseHelper(Map.this);
         ArrayList<HashMap<String, String>> roomList = null;
@@ -177,6 +208,7 @@ public class Map extends AppCompatActivity {
         }
     }
 
+    //Checks if any specific filters have been checked
     public Boolean roomTypeCheck(boolean loungeButton, boolean mediaButton, boolean officeButton, boolean outlookButton, boolean treadmillButton, boolean whiteboardButton, int num, String type, ArrayList<HashMap<String, String>> unoccupiedRooms) {
         boolean lou = ((loungeButton && unoccupiedRooms.get(num).get("type").equals("Lounge")));
         boolean med = ((mediaButton && unoccupiedRooms.get(num).get("type").equals("Media")));
@@ -189,6 +221,8 @@ public class Map extends AppCompatActivity {
         } else return false;
     }
 
+
+    //Establishes which rooms are displayed as green or clear
     public void roomVisibility(boolean loungeButton, boolean mediaButton, boolean officeButton, boolean outlookButton, boolean treadmillButton, boolean whiteboardButton, String type, ArrayList<HashMap<String, String>> unoccupiedRooms) {
 
         if (roomTypeCheck(loungeButton, mediaButton, officeButton, outlookButton, treadmillButton, whiteboardButton, 0, type, unoccupiedRooms)) {
@@ -378,6 +412,7 @@ public class Map extends AppCompatActivity {
         }
     }
 
+    //Formatting the link to the appropriate room status page
     public void goRoomStatus(View room) {
         if(room.getVisibility() == View.VISIBLE){
             String roomID = "";
